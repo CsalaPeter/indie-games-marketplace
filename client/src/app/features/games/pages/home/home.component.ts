@@ -1,6 +1,7 @@
-import { Component, OnInit, computed, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { GameService } from '../../services/games.service';
 import { Game } from "../../models/game.model";
+import { HttpResourceRef } from '@angular/common/http';
 
 @Component({
 	selector: 'app-home-page',
@@ -9,14 +10,12 @@ import { Game } from "../../models/game.model";
 	styleUrls: ["./home.component.css"],
 
 })
-export class GamesPageComponent implements OnInit {
-	games = signal<Game[]>([]);
+export class GamesPageComponent {
+	games: HttpResourceRef<Game[]>;
 
-	constructor(private gameService: GameService) { }
-
-	ngOnInit() {
-		// now you can safely use this.gameService
-		this.games = this.gameService.games;
-		this.gameService.fetchGames();
+	constructor(private gameService: GameService) {
+		this.games = this.gameService.getGamesResource();
 	}
+
+
 }
