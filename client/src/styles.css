@@ -50,6 +50,28 @@ h4 {
 	margin-block: 0;
 }
 
+a {
+	color: var(--text-primary);
+	text-decoration: none;
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+}
+
+li {
+	list-style-type: none;
+}
+
+button {
+	background-color: transparent;
+	border: none;
+	font-family: 'Poppins', sans-serif;
+	font-size: 16px;
+	padding: 0;
+}
+
 body {
 	background-color: var(--background-primary);
 	color: var(--text-primary);

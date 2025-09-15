@@ -1,0 +1,54 @@
+.navbar {
+	align-items: center;
+	background-color: var(--background-primary);
+	border-radius: 28px;
+	box-shadow: 0 2px 8px 0 #232023;
+	display: flex;
+	justify-content: space-between;
+	margin: 32px auto 0;
+	max-width: 1200px;
+	padding: 8px 16px 8px 16px;
+	position: sticky;
+	width: 100%;
+}
+
+.navbar__brand {
+	align-items: center;
+	display: flex;
+	height: 48px;
+}
+
+.navbar__menu {
+	display: flex;
+	column-gap: 16px;
+}
+
+.navbar__menu-item {
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 1.2;
+
+	&:hover {
+		cursor: pointer;
+		text-decoration: underline;
+	}
+}
+
+.navbar__actions {
+	display: flex;
+	column-gap: 16px;
+}
+
+.navbar__actions__search {
+	align-items: center;
+	display: flex;
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	& img {
+		height: 32px;
+		width: 32px;
+	}
+}
