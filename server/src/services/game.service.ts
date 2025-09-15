@@ -6,5 +6,6 @@ export async function getGames(): Promise<Game[]> {
 		.createQueryBuilder("game")
 		.leftJoinAndSelect("game.tags", "tag")
 		.leftJoinAndSelect("game.platforms", "platform")
+		.leftJoinAndSelect("game.genres", "genre")
 		.getMany();
 }
