@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import {
+	Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn
+} from 'typeorm';
 import { Tag } from './tag.entity.js';
 import { Platform } from './platform.entity.js';
 import { Genre } from './genre.entity.js';
@@ -33,4 +35,10 @@ export class Game {
 	@ManyToMany(() => Genre)
 	@JoinTable()
 	genres!: Genre[];
+
+	@CreateDateColumn({ name: "created_at", select: false })
+	created_at!: Date;
+
+	@UpdateDateColumn({ name: "updated_at", select: false })
+	updated_at!: Date;
 }
