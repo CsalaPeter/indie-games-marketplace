@@ -1,7 +1,7 @@
-<div class="game-list">
+<section class="game-list">
 	@for(game of games.value(); track game.id) {
 		<app-game-card [game]="game" />
 	} @empty {
 		<h1>No games yet...</h1>
 	}
-</div>
+</section>

@@ -3,8 +3,16 @@
 		<img [src]="game.cardImageUrl"/>
 	</div>
 	<div class="card__body">
-		<h3 class="card__body__title">
+		<h4 class="card__body__title">
 			{{game.name}}
-		</h3>
+		</h4>
+		<span class="card__body__price">
+			@if(game.price > 0){
+				{{game.price | currency:'EUR':true}}
+			}
+			@else {
+			Free
+			}
+		</span>
 	</div>
 </div>
