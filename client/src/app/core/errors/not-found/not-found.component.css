@@ -1,0 +1,21 @@
+.error {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 50vh;
+}
+
+.error__title {
+	font-size: 64px;
+	font-weight: bold;
+}
+
+.error__subtitle {
+	font-size: 40px;
+	margin-bottom: 20px;
+}
+
+.error__message {
+	margin-bottom: 16px;
+}
