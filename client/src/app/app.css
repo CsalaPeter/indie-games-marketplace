@@ -1,7 +1,7 @@
 .app__container {
-	margin: 0 auto;
-	width: auto;
+	margin: 32px auto 0;
 	padding: 0 40px;
+	width: auto;
 
 	@media (min-width: 576px) {
 		max-width: 540px;
@@ -18,4 +18,11 @@
 	@media (min-width: 1200px) {
 		max-width: 1140px;
 	}
+}
+
+app-layout-header {
+	padding: 0 40px;
+	position: sticky;
+	top: 0;
+	z-index: 100;
 }
