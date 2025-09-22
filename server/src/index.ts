@@ -12,7 +12,7 @@ AppDataSource.initialize()
 			console.log(`Server is running on port ${port}`);
 		});
 
-		app.use("/api/games", gameRouter)
+		app.use("/api/", gameRouter)
 	})
 	.catch((error) => {
 		console.log("Error during Data Source initialization", error);

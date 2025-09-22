@@ -13,6 +13,9 @@ export class Game {
 	@Column("varchar")
 	name!: string;
 
+	@Column({ type: "varchar", unique: true })
+	slug!: string;
+
 	@Column("varchar")
 	cardImageUrl!: string;
 

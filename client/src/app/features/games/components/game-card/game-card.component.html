@@ -1,4 +1,4 @@
-<div class="card">
+<a class="card" [routerLink]="['/game', game.slug]">
 	<div class="card__thumbnail">
 		<img [src]="game.cardImageUrl"/>
 	</div>
@@ -15,4 +15,4 @@
 			}
 		</span>
 	</div>
-</div>
+</a>

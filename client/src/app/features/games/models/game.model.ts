@@ -1,6 +1,7 @@
 export interface Game {
 	id: string;
 	name: string;
+	slug: string;
 	cardImageUrl: string;
 	tags: {
 		id: string;
