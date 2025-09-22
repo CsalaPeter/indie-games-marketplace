@@ -13,9 +13,9 @@ import { ActivatedRoute } from '@angular/router';
 export class GamePage {
 	route = inject(ActivatedRoute);
 	slug = this.route.snapshot.paramMap.get('slug')!;
-	games: HttpResourceRef<Game>;
+	game: HttpResourceRef<Game>;
 
 	constructor(private gameService: GameService) {
-		this.games = this.gameService.getGameResource(this.slug);
+		this.game = this.gameService.getGameResource(this.slug);
 	}
 }
