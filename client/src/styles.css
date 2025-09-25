@@ -1,15 +1,28 @@
 :root {
-	--gray-100: hsl(184, 9%, 69%);
-	--gray-200: hsl(209, 11%, 57%);
-	--gray-300: hsl(211, 15%, 43%);
-	--gray-400: hsl(210, 29%, 29%);
-	--gray-500: hsl(210, 29%, 24%);
 
-	--text-primary: hsl(214, 33%, 9%);
-	--text-secondary: hsl(201, 100%, 97%);
+	--gray-100: hsl(220, 11%, 95%);
+	--gray-200: hsl(218, 14%, 69%);
+	--gray-300: hsl(222, 20%, 45%);
+	--gray-400: hsl(221, 20%, 36%);
+	--gray-500: hsl(219, 21%, 26%);
+	--gray-600: hsl(219, 24%, 16%);
+	--gray-900: hsl(216, 14%, 7%);
 
-	--background-primary: hsl(228, 100%, 99%);
-	--background-secondary: hsl(300, 4%, 13%);
+	--blue-200: hsl(211, 84%, 90%);
+	--blue-200: hsl(210, 94%, 80%);
+	--blue-300: hsl(206, 100%, 65%);
+	--blue-400: hsl(200, 98%, 45%);
+	--blue-500: hsl(200, 99%, 38%);
+	--blue-600: hsl(201, 97%, 31%);
+	--blue-700: hsl(201, 99%, 23%);
+	--blue-800: hsl(203, 91%, 18%);
+	--blue-900: hsl(200, 80%, 12%);
+
+	--text-dark: var(--gray-700);
+	--text-light: var(--gray-100);
+
+	--background-light: var(--gray-100);
+	--background-dark: var(--gray-600);
 
 	--xs: 4px;
 	--s: 8px;
@@ -18,9 +31,9 @@
 	--xl: 32px;
 	--xxl: 48px;
 
-	--shadow-small: 0 2px 4px hsla(210, 29%, 24%, 0.2);
-	--shadow-medium: 0 2px 8px hsla(210, 29%, 24%, 0.4);
-	--shadow-large: 0 10px 10px hsla(210, 29%, 24%, 0.5);
+	--shadow-small: 0 2px 4px hsla(219, 24%, 16%, 0.2);
+	--shadow-medium: 0 2px 8px hsla(219, 24%, 16%, 0.4);
+	--shadow-large: 0 10px 10px hsla(219, 24%, 16%, 0.5);
 }
 
 h1 {
@@ -52,7 +65,7 @@ p {
 }
 
 a {
-	color: var(--text-primary);
+	color: var(--text-light);
 	text-decoration: none;
 }
 
@@ -62,6 +75,7 @@ ul {
 }
 
 li {
+	color: var(--text-light);
 	list-style-type: none;
 }
 
@@ -74,7 +88,7 @@ button {
 }
 
 body {
-	background-color: var(--background-primary);
+	background-color: var(--background-dark);
 	box-sizing: border-box;
 	color: var(--text-primary);
 	font-family: 'Poppins', sans-serif;

@@ -1,13 +1,13 @@
 .button-main {
 	align-items: center;
-	background-color: #2A6F97;
+	background-color: var(--blue-600);
 	border-radius: 16px;
-	color: var(--text-secondary);
+	color: var(--text-light);
 	display: flex;
 	padding: 4px 24px 4px 24px;
 
 	&:hover {
 		cursor: pointer;
-		background-color: #013A63;
+		background-color: var(--blue-500);
 	}
 }

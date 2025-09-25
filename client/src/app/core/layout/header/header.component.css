@@ -1,8 +1,7 @@
 .navbar {
 	align-items: center;
-	background-color: var(--background-primary);
+	background-color: var(--gray-500);
 	border-radius: 28px;
-	box-shadow: 0 2px 8px 0 #232023;
 	display: flex;
 	justify-content: space-between;
 	margin: 32px auto;
@@ -47,6 +46,7 @@
 	}
 
 	& svg {
+		color: var(--gray-100);
 		height: 32px;
 		width: 32px;
 	}

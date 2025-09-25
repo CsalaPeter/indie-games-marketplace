@@ -1,6 +1,6 @@
 .card {
 	border-radius: 12px;
-	box-shadow: 0 2px 8px 0 #232023;
+	box-shadow: var(--shadow-medium);
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
@@ -22,15 +22,16 @@
 .card__body {
 	display: flex;
 	flex-direction: column;
+	background-color: var(--gray-500);
 	gap: 24px;
 	padding: 12px;
 }
 
 .card__body__price {
 	align-self: flex-end;
-	background-color: #2a6f97;
+	background-color: var(--blue-600);
 	border-radius: 8px;
-	color: var(--text-secondary);
+	color: var(--text-light);
 	font-size: 18px;
 	font-weight: 500;
 	padding: 8px;
