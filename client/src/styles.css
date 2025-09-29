@@ -1,28 +1,32 @@
 :root {
 
 	--gray-100: hsl(220, 11%, 95%);
-	--gray-200: hsl(218, 14%, 69%);
-	--gray-300: hsl(222, 20%, 45%);
-	--gray-400: hsl(221, 20%, 36%);
-	--gray-500: hsl(219, 21%, 26%);
-	--gray-600: hsl(219, 24%, 16%);
-	--gray-900: hsl(216, 14%, 7%);
+	--gray-200: hsl(218, 14%, 79%);
+	--gray-300: hsl(218, 15%, 69%);
+	--gray-400: hsl(221, 15%, 60%);
+	--gray-500: hsl(218, 11%, 48%);
+	--gray-600: hsl(219, 11%, 40%);
+	--gray-700: hsl(220, 11%, 29%);
+	--gray-800: hsl(218, 11%, 20%);
+	--gray-900: hsl(214, 11%, 10%);
+	--gray-950: hsl(216, 14%, 7%);
 
-	--blue-200: hsl(211, 84%, 90%);
-	--blue-200: hsl(210, 94%, 80%);
-	--blue-300: hsl(206, 100%, 65%);
+	--blue-100: hsl(211, 85%, 90%);
+	--blue-200: hsl(210, 96%, 80%);
+	--blue-300: hsl(206, 99%, 65%);
 	--blue-400: hsl(200, 98%, 45%);
-	--blue-500: hsl(200, 99%, 38%);
-	--blue-600: hsl(201, 97%, 31%);
+	--blue-500: hsl(200, 100%, 38%);
+	--blue-600: hsl(201, 98%, 31%);
 	--blue-700: hsl(201, 99%, 23%);
-	--blue-800: hsl(203, 91%, 18%);
-	--blue-900: hsl(200, 80%, 12%);
+	--blue-800: hsl(203, 94%, 17%);
+	--blue-900: hsl(205, 77%, 10%);
+	--blue-950: hsl(205, 75%, 6%);
 
-	--text-dark: var(--gray-700);
+	--text-dark: var(--gray-950);
 	--text-light: var(--gray-100);
 
 	--background-light: var(--gray-100);
-	--background-dark: var(--gray-600);
+	--background-dark: var(--blue-950);
 
 	--xs: 4px;
 	--s: 8px;
@@ -102,4 +106,8 @@ app-root {
 	display: flex;
 	flex-direction: column;
 	min-height: 100%;
+}
+
+* {
+	box-sizing: border-box;
 }

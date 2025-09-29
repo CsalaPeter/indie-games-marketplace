@@ -1,9 +1,12 @@
 <nav class="navbar">
 	<a class="navbar__brand" routerLink="/">
-		Logo Here
+		<svg xmlns="http://www.w3.org/2000/svg">
+			<use xlink:href="assets/main.svg#logo-placeholder"/>
+		</svg>
 	</a>
 	<ul class="navbar__menu">
-		<li class="navbar__menu-item">Browse Games</li>
+		<li class="navbar__menu-item">Browse</li>
+		<li class="navbar__menu-item">Categories</li>
 		<li class="navbar__menu-item">Community</li>
 		<li class="navbar__menu-item">Support</li>
 	</ul>
@@ -13,7 +16,13 @@
 				<use xlink:href="assets/main.svg#magnifying-glass"/>
 			</svg>
 		</button>
-		<button class="button-main">Login</button>
-		<button class="button-main">Register</button>
+		<div class="navbar__actions__profile">
+			<svg xmlns="http://www.w3.org/2000/svg">
+				<use xlink:href="assets/main.svg#profile-placeholder"/>
+			</svg>
+		</div>
+	</div>
+	<div class="navbar__submenu">
+
 	</div>
 </nav>
