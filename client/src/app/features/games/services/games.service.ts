@@ -1,4 +1,4 @@
-import { inject, Injectable, resource } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { httpResource } from "@angular/common/http";
 import { Game } from "../models/game.model";
 

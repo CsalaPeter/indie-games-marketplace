@@ -19,3 +19,8 @@ export async function getGameBySlug(slug: string): Promise<Game | null> {
 		.leftJoinAndSelect("game.genres", "genre")
 		.getOne();
 }
+
+export async function getGamesByTerm(term: string): Promise<Game[]> {
+	return AppDataSource.getRepository(Game)
+		.createQueryBuilder("game").where('game.name ILIKE :term', { term: `%${term}%` }).getMany();
+}

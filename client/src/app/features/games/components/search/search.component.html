@@ -1,0 +1,15 @@
+<form class="navbar__search">
+	<input
+		class="navbar__search__input"
+		type="text"
+		name="searchField"
+		placeholder="Search..."
+		[ngModel]="searchService.getRawSearchTerm()"
+		(ngModelChange)="searchService.updateSearchTerm($event)"
+	/>
+	<button class="navbar__search__button">
+		<svg xmlns="http://www.w3.org/2000/svg">
+			<use xlink:href="assets/main.svg#magnifying-glass"/>
+		</svg>
+	</button>
+</form>
