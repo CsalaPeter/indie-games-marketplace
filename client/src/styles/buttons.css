@@ -1,13 +1,20 @@
 .button-main {
 	align-items: center;
-	background-color: var(--blue-600);
-	border-radius: 16px;
-	color: var(--text-light);
+	background-color: var(--blue-300);
+	border-radius: 4px;
+	box-shadow: var(--shadow-small);
+	color: var(--text-dark);
 	display: flex;
 	padding: 4px 24px 4px 24px;
 
 	&:hover {
 		cursor: pointer;
-		background-color: var(--blue-500);
+		background-color: var(--blue-400);
+	}
+
+	&:disabled {
+		background-color: var(--gray-300);
+		color: var(--gray-700);
+		cursor: not-allowed;
 	}
 }

@@ -35,9 +35,9 @@
 	--xl: 32px;
 	--xxl: 48px;
 
-	--shadow-small: 0 2px 4px hsla(219, 24%, 16%, 0.2);
-	--shadow-medium: 0 2px 8px hsla(219, 24%, 16%, 0.4);
-	--shadow-large: 0 10px 10px hsla(219, 24%, 16%, 0.5);
+	--shadow-small: 0 2px 4px hsla(219, 11%, 40%, 0.3);
+	--shadow-medium: 0 4px 8px hsla(219, 11%, 40%, 0.4);
+	--shadow-large: 0 6px 10px hsla(219, 11%, 40%, 0.5);
 }
 
 h1 {
