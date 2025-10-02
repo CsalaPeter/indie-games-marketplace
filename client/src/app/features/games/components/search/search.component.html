@@ -1,15 +1,32 @@
-<form class="navbar__search">
-	<input
-		class="navbar__search__input"
-		type="text"
-		name="searchField"
-		placeholder="Search..."
-		[ngModel]="searchService.getRawSearchTerm()"
-		(ngModelChange)="searchService.updateSearchTerm($event)"
-	/>
-	<button class="navbar__search__button">
-		<svg xmlns="http://www.w3.org/2000/svg">
-			<use xlink:href="assets/main.svg#magnifying-glass"/>
-		</svg>
-	</button>
-</form>
+<div class="search">
+	<form class="search__form">
+		<input
+			class="search__form__input"
+			type="text"
+			name="searchField"
+			placeholder="Search..."
+			[ngModel]="searchService.getRawSearchTerm()"
+			(ngModelChange)="searchService.updateSearchTerm($event)"
+		/>
+		<button class="search__form__button">
+			<svg xmlns="http://www.w3.org/2000/svg">
+				<use xlink:href="assets/main.svg#magnifying-glass"/>
+			</svg>
+		</button>
+	</form>
+	<div class="search__results">
+		<p>Search Results</p>
+		@if(searchService.searchResults.value().length === 0){
+		<p>No results found for {{searchService.rawSearchTerm()}}</p>
+		}
+		@if(!searchService.searchResults.isLoading() && searchService.searchResults.hasValue()){
+			<ul>
+				@for(game of searchService.searchResults.value(); track game.id) {
+					<li>
+						{{game.name}}
+					</li>
+				}
+			</ul>
+		}
+	</div>
+</div>

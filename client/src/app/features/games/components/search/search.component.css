@@ -1,4 +1,8 @@
-.navbar__search {
+.search {
+	position: relative;
+}
+
+.search__form {
 	background-color: var(--blue-700);
 	display: flex;
 	gap: 16px;
@@ -8,7 +12,16 @@
 	width: 100%;
 }
 
-.navbar__search__input {
+.search__results {
+	background-color: var(--blue-800);
+	padding: 12px 16px;
+	position: absolute;
+	top: 56px;
+	width: 100%;
+	z-index: 100;
+}
+
+.search__form__input {
 	background-color: transparent;
 	border: none;
 	color: var(--gray-100);
@@ -18,7 +31,7 @@
 }
 
 
-.navbar__search__button {
+.search__form__button {
 	align-items: center;
 	display: flex;
 	margin: -6px -12px;
