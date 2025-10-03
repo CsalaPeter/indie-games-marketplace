@@ -1,6 +1,7 @@
 <div class="search">
 	<form class="search__form">
 		<input
+			autocomplete="off"
 			class="search__form__input"
 			type="text"
 			name="searchField"
@@ -14,16 +15,26 @@
 			</svg>
 		</button>
 	</form>
-	<div class="search__results">
-		<p>Search Results</p>
-		@if(searchService.searchResults.value().length === 0){
-		<p>No results found for {{searchService.rawSearchTerm()}}</p>
+	<div class="search__results" [class.show]="hasResults()">
+		@if(searchService.searchResults.value().length === 0 && !searchService.searchResults.isLoading() && searchService.debouncedSearchTerm().length >= 3){
+			<p>No results found for "{{searchService.debouncedSearchTerm()}}"</p>
 		}
-		@if(!searchService.searchResults.isLoading() && searchService.searchResults.hasValue()){
-			<ul>
+		@if(!searchService.searchResults.isLoading() && searchService.searchResults.value().length != 0){
+			<ul class="search__results__list">
 				@for(game of searchService.searchResults.value(); track game.id) {
-					<li>
-						{{game.name}}
+					<li class="search__results__list-item" [routerLink]="['/game', game.slug]" (click)=selectItem()>
+						<img [src]="game.cardImageUrl"/>
+						<div class="search__results__list-item__content">
+							<p>{{game.name}}</p>
+							<p>
+								@if(game.price > 0){
+									{{game.price | currency:'EUR'}}
+								}
+								@else {
+									Free
+								}
+							</p>
+						</div>
 					</li>
 				}
 			</ul>
