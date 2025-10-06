@@ -5,10 +5,8 @@ import { GamesListComponent } from '../../components/games-list/games-list.compo
 	selector: 'app-home-page',
 	standalone: true,
 	templateUrl: "./home.component.html",
-	styleUrls: ["./home.component.css"],
+	styleUrl: "./home.component.css",
 	imports: [GamesListComponent]
-
 })
-export class GamesPageComponent {
 
-}
+export class GamesPageComponent { }

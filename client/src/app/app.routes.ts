@@ -1,14 +1,21 @@
 import { Routes } from '@angular/router';
 import { NotFound } from './core/errors/not-found/not-found.component';
+import { GamesPageComponent } from './features/games/pages/home/home.component';
+import { BrowsePageComponent } from './features/games/pages/browse/browse.component';
+import { GamePage } from './features/games/pages/game-details/game-details.component';
 
 export const routes: Routes = [
 	{
 		path: "",
-		loadComponent: () => import("./features/games/pages/home/home.component").then(m => m.GamesPageComponent),
+		component: GamesPageComponent
+	},
+	{
+		path: "browse",
+		component: BrowsePageComponent
 	},
 	{
 		path: "game/:slug",
-		loadComponent: () => import("./features/games/pages/game-details/game-details.component").then(m => m.GamePage),
+		component: GamePage
 	},
 	{ path: '**', component: NotFound }
 ];
