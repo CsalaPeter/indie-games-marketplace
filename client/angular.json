@@ -23,8 +23,7 @@
 							"src/assets"
 						],
 						"styles": [
-							"src/styles.css",
-							"src/styles/buttons.css"
+							"src/styles/styles.css"
 						]
 					},
 					"configurations": {
