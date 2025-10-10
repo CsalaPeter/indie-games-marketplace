@@ -3,7 +3,7 @@ import { getAllGames, getGame, searchGames } from "../handlers/game.handler.js";
 
 const gameRouter = Router();
 
-gameRouter.get("/", getAllGames);
+gameRouter.get("/games", getAllGames);
 gameRouter.get("/game/:slug", getGame);
 gameRouter.get("/search", searchGames)
 

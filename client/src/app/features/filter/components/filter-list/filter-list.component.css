@@ -1,0 +1,27 @@
+.filter-list {
+	overflow: hidden;
+}
+
+.filter-list::details-content {
+	block-size: 0%;
+	transition-behavior: allow-discrete;
+	transition: block-size 1s, content-visibility 1s;
+}
+
+.filter-list[open]::details-content {
+	block-size: auto;
+}
+
+.filter-list__title {
+	color: var(--text-light);
+	cursor: pointer;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.filter-list__options {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding-top: 12px;
+}

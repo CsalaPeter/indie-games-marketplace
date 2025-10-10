@@ -1,20 +1,9 @@
-<h1>Browse Games</h1>
-<label>
-	<input type="checkbox">
-	Checkbox
-</label>
-<br>
-<label>
-	<input type="checkbox" checked>
-	Checkbox - Checked
-</label>
-<br>
-<label>
-	<input type="radio">
-	Radio
-</label>
-<br>
-<label>
-	<input type="radio" checked>
-	Radio - Checked
-</label>
+<section class="browse">
+	<aside class="browse__filters">
+		<app-filter-list title="Genres" [options]="genres.value()" [(selectedOptions)] = "selectedGenres"/>
+		<app-filter-list title="Tags" [options]="tags.value()" [(selectedOptions)] = "selectedTags"/>
+	</aside>
+	<div>
+		<app-games-list [games] = "games.value()"/>
+	</div>
+</section>

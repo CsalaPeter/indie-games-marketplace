@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
-import { GameService } from '../../services/games.service';
-import { Game } from "../../models/game.model";
-import { HttpResourceRef } from '@angular/common/http';
+import { Component, input } from '@angular/core';
 import { GameCardComponent } from '../game-card/game-card.component';
+import { Game } from '../../models/game.model';
 
 @Component({
 	selector: 'app-games-list',
@@ -13,9 +11,5 @@ import { GameCardComponent } from '../game-card/game-card.component';
 })
 
 export class GamesListComponent {
-	games: HttpResourceRef<Game[]>;
-
-	constructor(private gameService: GameService) {
-		this.games = this.gameService.getGamesResource();
-	}
+	games = input.required<Game[]>();
 }

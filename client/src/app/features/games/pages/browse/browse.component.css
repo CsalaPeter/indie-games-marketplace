@@ -1,1 +1,8 @@
+.browse {
+	display: flex;
+}
 
+.browse__filters {
+	max-width: 236px;
+	width: 100%;
+}

@@ -1,6 +1,5 @@
 .card {
-	border-radius: 12px;
-	box-shadow: var(--shadow-medium);
+	border-radius: 8px;
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;

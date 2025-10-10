@@ -1,13 +1,27 @@
 import { AppDataSource } from "../database/dataSource.js";
 import { Game } from "../database/entities/game.entity.js";
 
-export async function getGames(): Promise<Game[]> {
-	return AppDataSource.getRepository(Game)
+interface GameFilters {
+	genres?: string[];
+	tags?: string[];
+}
+
+export async function getGames({ genres = [], tags = [] }: GameFilters): Promise<Game[]> {
+	const query = AppDataSource.getRepository(Game)
 		.createQueryBuilder("game")
 		.leftJoinAndSelect("game.tags", "tag")
 		.leftJoinAndSelect("game.platforms", "platform")
 		.leftJoinAndSelect("game.genres", "genre")
-		.getMany();
+
+	if (genres.length > 0) {
+		query.andWhere("genre.name IN (:...genres)", { genres });
+	}
+
+	if (tags.length > 0) {
+		query.andWhere("tag.name IN (:...tags)", { tags });
+	}
+
+	return query.getMany();
 }
 
 export async function getGameBySlug(slug: string): Promise<Game | null> {
