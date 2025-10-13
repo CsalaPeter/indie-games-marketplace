@@ -1,9 +1,15 @@
 import {
-	Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn
-} from 'typeorm';
-import { Tag } from './tag.entity.js';
-import { Platform } from './platform.entity.js';
-import { Genre } from './genre.entity.js';
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	ManyToMany,
+	JoinTable,
+	CreateDateColumn,
+	UpdateDateColumn,
+} from "typeorm";
+import { Tag } from "./tag.entity.js";
+import { Platform } from "./platform.entity.js";
+import { Genre } from "./genre.entity.js";
 
 @Entity()
 export class Game {
@@ -20,10 +26,13 @@ export class Game {
 	cardImageUrl!: string;
 
 	@Column({
-		type: "decimal", precision: 6, scale: 2, transformer: {
+		type: "decimal",
+		precision: 6,
+		scale: 2,
+		transformer: {
 			to: (value: number) => value,
-			from: (value: string) => parseFloat(value)
-		}
+			from: (value: string) => parseFloat(value),
+		},
 	})
 	price!: number;
 

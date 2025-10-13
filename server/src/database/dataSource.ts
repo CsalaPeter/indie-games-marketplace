@@ -13,5 +13,5 @@ export const AppDataSource = new DataSource({
 	database: "postgres",
 	synchronize: true,
 	logging: true,
-	entities: [Game, Tag, Platform, Genre]
+	entities: [Game, Tag, Platform, Genre],
 });

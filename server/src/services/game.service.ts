@@ -6,12 +6,15 @@ interface GameFilters {
 	tags?: string[];
 }
 
-export async function getGames({ genres = [], tags = [] }: GameFilters): Promise<Game[]> {
+export async function getGames({
+	genres = [],
+	tags = [],
+}: GameFilters): Promise<Game[]> {
 	const query = AppDataSource.getRepository(Game)
 		.createQueryBuilder("game")
 		.leftJoinAndSelect("game.tags", "tag")
 		.leftJoinAndSelect("game.platforms", "platform")
-		.leftJoinAndSelect("game.genres", "genre")
+		.leftJoinAndSelect("game.genres", "genre");
 
 	if (genres.length > 0) {
 		query.andWhere("genre.name IN (:...genres)", { genres });
@@ -36,5 +39,7 @@ export async function getGameBySlug(slug: string): Promise<Game | null> {
 
 export async function getGamesByTerm(term: string): Promise<Game[]> {
 	return AppDataSource.getRepository(Game)
-		.createQueryBuilder("game").where('game.name ILIKE :term', { term: `%${term}%` }).getMany();
+		.createQueryBuilder("game")
+		.where("game.name ILIKE :term", { term: `%${term}%` })
+		.getMany();
 }

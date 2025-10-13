@@ -3,6 +3,6 @@ import { getAllGenres } from "../handlers/genre.handler.js";
 
 const genreRouter = Router();
 
-genreRouter.get("/genres", getAllGenres)
+genreRouter.get("/genres", getAllGenres);
 
 export default genreRouter;

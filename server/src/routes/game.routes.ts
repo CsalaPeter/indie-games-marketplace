@@ -5,6 +5,6 @@ const gameRouter = Router();
 
 gameRouter.get("/games", getAllGames);
 gameRouter.get("/game/:slug", getGame);
-gameRouter.get("/search", searchGames)
+gameRouter.get("/search", searchGames);
 
 export default gameRouter;
