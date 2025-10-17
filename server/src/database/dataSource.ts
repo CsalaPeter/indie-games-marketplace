@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
 	port: 5432,
 	username: "postgres",
 	password: "postgres",
-	database: "postgres",
+	database: "indie_games_marketplace",
 	synchronize: true,
 	logging: true,
 	entities: [Game, Tag, Platform, Genre],

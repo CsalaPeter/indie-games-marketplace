@@ -10,5 +10,5 @@ import { RouterLink } from '@angular/router';
 	imports: [CommonModule, RouterLink],
 })
 export class GameCardComponent {
-	@Input() game!: Game
+	@Input() game!: Game;
 }

@@ -25,6 +25,12 @@ export class Game {
 	@Column("varchar")
 	cardImageUrl!: string;
 
+	@Column("varchar")
+	description!: string;
+
+	@Column("date")
+	releaseDate!: Date;
+
 	@Column({
 		type: "decimal",
 		precision: 6,

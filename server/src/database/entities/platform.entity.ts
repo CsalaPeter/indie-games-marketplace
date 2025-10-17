@@ -7,7 +7,4 @@ export class Platform {
 
 	@Column()
 	name!: string;
-
-	@Column()
-	icon!: string;
 }
