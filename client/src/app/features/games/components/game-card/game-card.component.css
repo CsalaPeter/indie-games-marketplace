@@ -9,6 +9,7 @@
 	aspect-ratio: 16 / 9;
 	position: relative;
 	width: 100%;
+	max-height: 153px;
 
 	& img {
 		height: 100%;
@@ -21,17 +22,19 @@
 .card__body {
 	display: flex;
 	flex-direction: column;
-	background-color: var(--gray-500);
+	background-color: var(--blue-600);
 	gap: 24px;
 	padding: 12px;
 }
 
+.card__body__title {
+	height: 54px;
+	font-size: 18px;
+}
+
 .card__body__price {
 	align-self: flex-end;
-	background-color: var(--blue-600);
-	border-radius: 8px;
 	color: var(--text-light);
-	font-size: 18px;
-	font-weight: 500;
-	padding: 8px;
+	font-size: 20px;
+	font-weight: 600;
 }

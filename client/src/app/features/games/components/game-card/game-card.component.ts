@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Game } from '../../models/game.model';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -10,5 +10,5 @@ import { RouterLink } from '@angular/router';
 	imports: [CommonModule, RouterLink],
 })
 export class GameCardComponent {
-	@Input() game!: Game;
+	game = input.required<Game>();
 }

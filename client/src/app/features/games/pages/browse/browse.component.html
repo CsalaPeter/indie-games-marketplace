@@ -1,9 +1,11 @@
 <section class="browse">
 	<aside class="browse__filters">
-		<app-filter-list title="Genres" [options]="genres.value()" [(selectedOptions)] = "selectedGenres"/>
-		<app-filter-list title="Tags" [options]="tags.value()" [(selectedOptions)] = "selectedTags"/>
+		<app-filter-list
+			title="Genres"
+			[options]="genres.value()"
+			[(selectedOptions)]="selectedGenres"
+		/>
+		<app-filter-list title="Tags" [options]="tags.value()" [(selectedOptions)]="selectedTags" />
 	</aside>
-	<div>
-		<app-games-list [games] = "games.value()"/>
-	</div>
+	<app-games-list [games]="games.value()" />
 </section>

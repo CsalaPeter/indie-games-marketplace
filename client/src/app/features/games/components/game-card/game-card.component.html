@@ -1,16 +1,19 @@
-<a class="card" [routerLink]="['/game', game.slug]">
+<a class="card" [routerLink]="['/game', game().slug]">
 	<div class="card__thumbnail">
-		<img [src]="game.cardImageUrl"/>
+		@if (game().cardImageUrl === '') {
+			<img src="assets/images/no-img.png" />
+		} @else {
+			<img [src]="game().cardImageUrl" />
+		}
 	</div>
 	<div class="card__body">
 		<h4 class="card__body__title">
-			{{game.name}}
+			{{ game().name }}
 		</h4>
 		<span class="card__body__price">
-			@if(game.price > 0){
-				{{game.price | currency:'EUR'}}
-			}
-			@else {
+			@if (game().price > 0) {
+				{{ game().price | currency: 'EUR' }}
+			} @else {
 				Free
 			}
 		</span>
