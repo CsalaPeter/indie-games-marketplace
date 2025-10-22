@@ -42,7 +42,11 @@
 		cursor: pointer;
 
 		& .search__results__list-item__content {
-			background: linear-gradient(90deg, rgba(2, 102, 157, 0.1) 0%, rgba(2, 152, 227, 1) 100%);
+			background: linear-gradient(
+				90deg,
+				rgba(2, 102, 157, 0.1) 0%,
+				rgba(2, 152, 227, 1) 100%
+			);
 		}
 	}
 
@@ -67,10 +71,7 @@
 	font-size: 18px;
 	outline: none;
 	width: 100%;
-
-
 }
-
 
 .search__form__button {
 	align-items: center;

@@ -1,6 +1,6 @@
-import { Component } from "@angular/core";
-import { RouterLink } from "@angular/router";
-import { SearchComponent } from "../../../features/games/components/search/search.component";
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { SearchComponent } from '../../../features/games/components/search/search.component';
 
 @Component({
 	selector: 'app-layout-header',
@@ -8,7 +8,4 @@ import { SearchComponent } from "../../../features/games/components/search/searc
 	styleUrl: './header.component.css',
 	imports: [RouterLink, SearchComponent],
 })
-
-export class HeaderComponent {
-
-}
+export class HeaderComponent {}
