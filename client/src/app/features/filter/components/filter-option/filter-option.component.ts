@@ -1,20 +1,16 @@
-import { Component, input, model, computed, ChangeDetectionStrategy } from "@angular/core";
+import { Component, input, model, computed, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'filter-option',
 	standalone: true,
 	template: `
 		<label>
-			<input
-				type="checkbox"
-				[checked]="isChecked()"
-				(change)="toggle()" />
+			<input type="checkbox" [checked]="isChecked()" (change)="toggle()" />
 			<span>{{ label() }}</span>
 		</label>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 export class FilterOptionComponent {
 	label = input.required<string>();
 	value = input.required<string>();
@@ -24,10 +20,10 @@ export class FilterOptionComponent {
 	toggle() {
 		const filter = this.value();
 
-		this.filters.update(currentFilters =>
+		this.filters.update((currentFilters) =>
 			currentFilters.includes(filter)
-				? currentFilters.filter(val => val !== filter)
-				: [...currentFilters, filter]
+				? currentFilters.filter((val) => val !== filter)
+				: [...currentFilters, filter],
 		);
 	}
 }

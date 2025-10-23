@@ -1,7 +1,8 @@
-@import "buttons.css";
-@import "inputs.css";
+@import 'buttons.css';
+@import 'inputs.css';
 
 :root {
+	/* The interpolate-size only works with Chrome and Opera, no support for Safari of Firefox yet */
 	interpolate-size: allow-keywords;
 
 	--gray-100: hsl(220, 11%, 95%);
