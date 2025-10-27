@@ -1,5 +1,7 @@
 .browse {
 	display: flex;
+	gap: 12px;
+	margin-bottom: 28px;
 }
 
 .browse__filters {
@@ -8,5 +10,9 @@
 }
 
 app-games-list {
+	width: 100%;
+}
+
+app-games-skeleton {
 	width: 100%;
 }

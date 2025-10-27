@@ -7,13 +7,14 @@ import { HttpResourceRef } from '@angular/common/http';
 import { Genre } from '../../models/genre.model';
 import { Tag } from '../../models/tag.model';
 import { Game } from '../../models/game.model';
+import { GamesSkeletonComponent } from '../../components/games-skeleton/games-skeleton.component';
 
 @Component({
 	selector: 'app-browse-page',
 	standalone: true,
 	templateUrl: './browse.component.html',
 	styleUrls: ['browse.component.css'],
-	imports: [GamesListComponent, FilterListComponent],
+	imports: [GamesListComponent, FilterListComponent, GamesSkeletonComponent],
 })
 export class BrowsePageComponent {
 	private gameService = inject(GameService);
@@ -29,4 +30,8 @@ export class BrowsePageComponent {
 	genres: HttpResourceRef<Genre[]> = this.filterService.getGenres();
 	tags: HttpResourceRef<Tag[]> = this.filterService.getTags();
 	games: HttpResourceRef<Game[]> = this.gameService.getGamesResource(this.filters);
+
+	get isLoading() {
+		return this.games.isLoading();
+	}
 }

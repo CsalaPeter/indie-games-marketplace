@@ -7,5 +7,9 @@
 		/>
 		<app-filter-list title="Tags" [options]="tags.value()" [(selectedOptions)]="selectedTags" />
 	</aside>
-	<app-games-list [games]="games.value()" />
+	@defer {
+		<app-games-list [games]="games.value()" />
+	} @loading (minimum 1.5s) {
+		<app-games-skeleton />
+	}
 </section>
