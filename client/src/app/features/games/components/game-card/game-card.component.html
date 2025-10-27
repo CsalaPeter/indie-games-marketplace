@@ -7,10 +7,10 @@
 		}
 	</div>
 	<div class="card__body">
-		<h4 class="card__body__title">
+		<h4 class="card__title">
 			{{ game().name }}
 		</h4>
-		<span class="card__body__price">
+		<span class="card__price">
 			@if (game().price > 0) {
 				{{ game().price | currency: 'EUR' }}
 			} @else {

@@ -3,34 +3,34 @@
 		<input
 			aria-label="Search input"
 			autocomplete="off"
-			class="search__form__input"
+			class="search__input"
 			type="text"
 			name="searchField"
 			placeholder="Search..."
 			[ngModel]="searchService.getRawSearchTerm()"
 			(ngModelChange)="searchService.updateSearchTerm($event)"
 		/>
-		<button type="button" class="search__form__button" aria-label="Search button">
+		<button type="button" class="search__button" aria-label="Search button">
 			<svg xmlns="http://www.w3.org/2000/svg">
 				<use xlink:href="assets/main.svg#magnifying-glass" />
 			</svg>
 		</button>
 	</form>
-	<div class="search__results" [class.show]="hasResults()">
+	<div class="search__results" [class.search__results--visible]="hasResults()">
 		@if (isLoading) {
-			<p class="search__results__loading">Loading...</p>
+			<p class="search__loading">Loading...</p>
 		} @else if (results.length === 0 && !isLoading && term.length >= 3) {
 			<p>No results found for "{{ term }}"</p>
 		} @else if (!isLoading && results.length != 0) {
-			<ul class="search__results__list">
+			<ul class="search__list">
 				@for (game of results; track game.id) {
 					<li
-						class="search__results__list-item"
+						class="search__item"
 						[routerLink]="['/game', game.slug]"
 						(click)="selectItem()"
 					>
 						<img [src]="game.cardImageUrl" />
-						<div class="search__results__list-item__content">
+						<div class="search__item-content">
 							<p>{{ game.name }}</p>
 							<p>
 								@if (game.price > 0) {

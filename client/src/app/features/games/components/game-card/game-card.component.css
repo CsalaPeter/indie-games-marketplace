@@ -27,12 +27,12 @@
 	padding: 12px;
 }
 
-.card__body__title {
+.card__title {
 	height: 54px;
 	font-size: 18px;
 }
 
-.card__body__price {
+.card__price {
 	align-self: flex-end;
 	color: var(--text-light);
 	font-size: 20px;

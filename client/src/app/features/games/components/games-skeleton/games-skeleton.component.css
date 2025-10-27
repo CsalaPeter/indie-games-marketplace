@@ -13,19 +13,19 @@
 	}
 }
 
-.games-skeleton__card {
+.card-skeleton {
 	border-radius: 8px;
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
 }
 
-.games-skeleton__card__thumbnail {
+.card-skeleton__thumbnail {
 	height: 153px;
 	width: 100%;
 }
 
-.games-skeleton__card__body {
+.card-skeleton__body {
 	display: flex;
 	flex-direction: column;
 	background-color: var(--blue-600);
@@ -33,7 +33,7 @@
 	padding: 12px;
 }
 
-.games-skeleton__card__body__title {
+.card-skeleton__title {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
@@ -43,7 +43,7 @@
 	}
 }
 
-.games-skeleton__card__body-price {
+.card-skeleton__price {
 	align-self: flex-end;
 	height: 30px;
 	width: 66px;
