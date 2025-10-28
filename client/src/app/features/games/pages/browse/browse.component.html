@@ -6,6 +6,11 @@
 			[(selectedOptions)]="selectedGenres"
 		/>
 		<app-filter-list title="Tags" [options]="tags.value()" [(selectedOptions)]="selectedTags" />
+		<app-filter-list
+			title="Platforms"
+			[options]="platforms.value()"
+			[(selectedOptions)]="selectedPlatforms"
+		/>
 	</aside>
 	@defer {
 		<app-games-list [games]="games.value()" />

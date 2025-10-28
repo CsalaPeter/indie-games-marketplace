@@ -1,7 +1,8 @@
-import { Injectable } from "@angular/core";
-import { httpResource } from "@angular/common/http";
-import { Genre } from "../models/genre.model";
-import { Tag } from "../models/tag.model";
+import { Injectable } from '@angular/core';
+import { httpResource } from '@angular/common/http';
+import { Genre } from '../models/genre.model';
+import { Tag } from '../models/tag.model';
+import { Platform } from '../models/platform.model';
 
 @Injectable({ providedIn: 'root' })
 export class FilterService {
@@ -11,5 +12,9 @@ export class FilterService {
 
 	getTags() {
 		return httpResource<Tag[]>(() => '/api/tags', { defaultValue: [] as Tag[] });
+	}
+
+	getPlatforms() {
+		return httpResource<Tag[]>(() => '/api/platforms', { defaultValue: [] as Platform[] });
 	}
 }
