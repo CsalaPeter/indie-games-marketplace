@@ -36,7 +36,11 @@ import { Options } from '../../models/option.model';
 						[(filters)]="selectedOptions"
 					></filter-option>
 				}
-				<button class="filter-list__button">Show all {{ title().toLowerCase() }} >></button>
+				@if (showAllButton()) {
+					<button class="filter-list__button">
+						Show all {{ title().toLowerCase() }} >>
+					</button>
+				}
 			</div>
 		</div>
 	`,
@@ -51,6 +55,7 @@ export class FilterListComponent {
 	hasSearch = input<boolean>(false);
 	isActive = false;
 	searchTerm = signal('');
+	showAllButton = input<boolean>(false);
 
 	searchedOptions = computed(() => {
 		const term = this.searchTerm().toLowerCase();
