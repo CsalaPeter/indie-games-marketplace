@@ -5,7 +5,13 @@
 			[options]="genres.value()"
 			[(selectedOptions)]="selectedGenres"
 		/>
-		<app-filter-list title="Tags" [options]="tags.value()" [(selectedOptions)]="selectedTags" />
+		<app-filter-list
+			title="Tags"
+			[options]="tags.value()"
+			[(selectedOptions)]="selectedTags"
+			[showLimit]="10"
+			[hasSearch]="true"
+		/>
 		<app-filter-list
 			title="Platforms"
 			[options]="platforms.value()"

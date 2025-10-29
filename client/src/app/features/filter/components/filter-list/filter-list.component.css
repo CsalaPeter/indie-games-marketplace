@@ -24,6 +24,32 @@
 	}
 }
 
+.filter-list__search {
+	background-color: var(--blue-600);
+	border: none;
+	border-radius: 4px;
+	padding: 8px 12px;
+	color: var(--gray-100);
+	font-size: 18px;
+	outline: none;
+	width: 100%;
+	margin-top: 8px;
+
+	&::placeholder {
+		color: var(--gray-300);
+	}
+}
+
+.filter-list__button {
+	color: var(--text-light);
+	width: fit-content;
+
+	&:hover {
+		cursor: pointer;
+		text-decoration: underline;
+	}
+}
+
 .filter-list__title::before {
 	content: '';
 	border: solid var(--text-light);
@@ -43,6 +69,7 @@
 .filter-list__options {
 	height: 0;
 	display: flex;
+	gap: 16px;
 	flex-direction: column;
 	transition: height 1s ease;
 	overflow: hidden;
@@ -50,8 +77,4 @@
 	&.filter-list__options--show {
 		height: auto;
 	}
-}
-
-filter-option {
-	padding: 8px 0;
 }
