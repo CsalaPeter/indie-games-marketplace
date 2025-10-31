@@ -4,15 +4,39 @@
 	margin-bottom: 28px;
 }
 
+.browse__catalog {
+	width: 100%;
+}
+
+.browse__catalog__sort {
+	margin-bottom: 24px;
+}
+
 .browse__filters {
 	max-width: 236px;
 	width: 100%;
 }
 
-app-games-list {
+.browse__form {
+	background-color: var(--blue-600);
+	border-radius: 8px;
+	display: flex;
+	gap: 16px;
+	height: 40px;
+	max-width: 400px;
+	padding: 6px 12px;
 	width: 100%;
 }
 
-app-games-skeleton {
+.browse__input {
+	background-color: transparent;
+	border: none;
+	color: var(--gray-100);
+	font-size: 18px;
+	outline: none;
 	width: 100%;
+
+	&::placeholder {
+		color: var(--gray-300);
+	}
 }

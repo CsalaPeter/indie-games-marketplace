@@ -19,9 +19,23 @@
 			[(selectedOptions)]="selectedPlatforms"
 		/>
 	</aside>
-	@defer {
-		<app-games-list [games]="games.value()" />
-	} @loading (minimum 1.5s) {
-		<app-games-skeleton />
-	}
+	<div class="browse__catalog">
+		<div class="browse__sort">
+			<form class="browse__form" (submit)="$event.preventDefault()">
+				<input
+					aria-label="Search input"
+					autocomplete="off"
+					class="browse__input"
+					type="text"
+					name="searchField"
+					placeholder="Search..."
+				/>
+			</form>
+		</div>
+		@defer {
+			<app-games-list [games]="games.value()" />
+		} @loading (minimum 1.5s) {
+			<app-games-skeleton />
+		}
+	</div>
 </section>
