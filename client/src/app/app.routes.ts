@@ -6,16 +6,18 @@ import { GamePage } from './features/games/pages/game-details/game-details.compo
 
 export const routes: Routes = [
 	{
-		path: "",
-		component: GamesPageComponent
+		path: '',
+		component: GamesPageComponent,
+		title: 'Home',
 	},
 	{
-		path: "browse",
-		component: BrowsePageComponent
+		path: 'browse',
+		component: BrowsePageComponent,
+		title: 'Browse Games',
 	},
 	{
-		path: "game/:slug",
-		component: GamePage
+		path: 'game/:slug',
+		component: GamePage,
 	},
-	{ path: '**', component: NotFound }
+	{ path: '**', component: NotFound },
 ];

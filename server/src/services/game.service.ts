@@ -4,11 +4,15 @@ import { Game } from "../database/entities/game.entity.js";
 interface GameFilters {
 	genres?: string[];
 	tags?: string[];
+	platforms?: string[];
+	term?: string;
 }
 
 export async function getGames({
 	genres = [],
 	tags = [],
+	platforms = [],
+	term = "",
 }: GameFilters): Promise<Game[]> {
 	const query = AppDataSource.getRepository(Game)
 		.createQueryBuilder("game")
@@ -22,6 +26,14 @@ export async function getGames({
 
 	if (tags.length > 0) {
 		query.andWhere("tag.name IN (:...tags)", { tags });
+	}
+
+	if (platforms.length > 0) {
+		query.andWhere("platform.name IN (:...platforms)", { platforms });
+	}
+
+	if (term !== "") {
+		query.andWhere("game.name ILIKE :term", { term: `%${term}%` });
 	}
 
 	return query.getMany();

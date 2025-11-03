@@ -29,6 +29,8 @@
 					type="text"
 					name="searchField"
 					placeholder="Search..."
+					[ngModel]="getRawSearchTerm()"
+					(ngModelChange)="updateSearchTerm($event)"
 				/>
 			</form>
 		</div>
