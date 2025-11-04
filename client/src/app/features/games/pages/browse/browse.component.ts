@@ -28,6 +28,21 @@ export class BrowsePageComponent {
 	searchTerm: WritableSignal<string> = signal('');
 	debouncedSearchTerm: WritableSignal<string> = signal('');
 	private debounceTimer: number | undefined;
+	isActive = false;
+
+	sortOptions = [
+		{ id: 'date-new', label: 'Release Date (from newest)' },
+		{ id: 'date-old', label: 'Release Date (from oldest)' },
+		{ id: 'price-ascending', label: 'Price (from lowest)' },
+		{ id: 'price-descending', label: 'Price (from highest)' },
+		{ id: 'name-az', label: 'Name (A–Z)' },
+		{ id: 'name-za', label: 'Name (Z–A)' },
+		{ id: 'rating', label: 'Rating (from highest)' },
+	];
+
+	selectedOptionId = 'date-new';
+	selectedOptionLabel =
+		this.sortOptions.find((option) => option.id === this.selectedOptionId)?.label || '';
 
 	constructor() {
 		effect(() => {
@@ -41,6 +56,22 @@ export class BrowsePageComponent {
 				this.debouncedSearchTerm.set(term);
 			}, 600);
 		});
+	}
+
+	onOptionClick(event: Event) {
+		const target = event.target as HTMLElement;
+
+		if (target.tagName === 'INPUT') {
+			const input = target as HTMLInputElement;
+			const selected = this.sortOptions.find((option) => option.id === input.id);
+
+			if (selected) {
+				this.selectedOptionId = selected.id;
+				this.selectedOptionLabel = selected.label;
+			}
+
+			(document.getElementById('browse__sortbox__list') as any)?.hidePopover?.();
+		}
 	}
 
 	updateSearchTerm(term: string): void {
