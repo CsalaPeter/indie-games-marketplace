@@ -6,6 +6,7 @@ interface GameFilters {
 	tags?: string[];
 	platforms?: string[];
 	term?: string;
+	sort?: string;
 }
 
 export async function getGames({
@@ -13,6 +14,7 @@ export async function getGames({
 	tags = [],
 	platforms = [],
 	term = "",
+	sort = "date-new",
 }: GameFilters): Promise<Game[]> {
 	const query = AppDataSource.getRepository(Game)
 		.createQueryBuilder("game")
@@ -34,6 +36,36 @@ export async function getGames({
 
 	if (term !== "") {
 		query.andWhere("game.name ILIKE :term", { term: `%${term}%` });
+	}
+
+	switch (sort) {
+		case "date-new":
+			query.orderBy("game.releaseDate", "DESC");
+			break;
+
+		case "date-old":
+			query.orderBy("game.releaseDate", "ASC");
+			break;
+
+		case "price-ascending":
+			query.orderBy("game.price", "ASC");
+			break;
+
+		case "price-descending":
+			query.orderBy("game.price", "DESC");
+			break;
+
+		case "name-az":
+			query.orderBy("game.name", "ASC");
+			break;
+
+		case "name-za":
+			query.orderBy("game.name", "DESC");
+			break;
+
+		case "rating":
+			query.orderBy("game.rating", "DESC");
+			break;
 	}
 
 	return query.getMany();

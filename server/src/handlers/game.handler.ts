@@ -20,18 +20,20 @@ function getQueryAsStrings(
 
 export async function getAllGames(request: Request, response: Response) {
 	try {
-		const { genres, tags, platform, term } = request.query;
+		const { genres, tags, platform, term, sort } = request.query;
 
 		const genreFilters = getQueryAsStrings(genres);
 		const tagFilters = getQueryAsStrings(tags);
 		const platformFilters = getQueryAsStrings(platform);
 		const termFilter = getQueryAsStrings(term)[0] ?? "";
+		const sortOrder = getQueryAsStrings(sort)[0] ?? "";
 
 		const games = await getGames({
 			genres: genreFilters,
 			tags: tagFilters,
 			platforms: platformFilters,
 			term: termFilter,
+			sort: sortOrder,
 		});
 		response.status(200).json(games);
 	} catch (error) {

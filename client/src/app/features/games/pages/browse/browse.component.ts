@@ -40,9 +40,10 @@ export class BrowsePageComponent {
 		{ id: 'rating', label: 'Rating (from highest)' },
 	];
 
-	selectedOptionId = 'date-new';
-	selectedOptionLabel =
-		this.sortOptions.find((option) => option.id === this.selectedOptionId)?.label || '';
+	selectedOptionId = signal('date-new');
+	selectedOptionLabel = signal(
+		this.sortOptions.find((option) => option.id === this.selectedOptionId())?.label || '',
+	);
 
 	constructor() {
 		effect(() => {
@@ -66,8 +67,8 @@ export class BrowsePageComponent {
 			const selected = this.sortOptions.find((option) => option.id === input.id);
 
 			if (selected) {
-				this.selectedOptionId = selected.id;
-				this.selectedOptionLabel = selected.label;
+				this.selectedOptionId.set(selected.id);
+				this.selectedOptionLabel.set(selected.label);
 			}
 
 			(document.getElementById('browse__sortbox__list') as any)?.hidePopover?.();
@@ -87,6 +88,7 @@ export class BrowsePageComponent {
 		tags: this.selectedTags(),
 		platforms: this.selectedPlatforms(),
 		term: this.debouncedSearchTerm(),
+		sort: this.selectedOptionId(),
 	}));
 
 	genres: HttpResourceRef<Genre[]> = this.filterService.getGenres();

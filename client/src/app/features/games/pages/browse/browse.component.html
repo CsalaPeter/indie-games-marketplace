@@ -36,24 +36,20 @@
 			<div class="browse__sortbox">
 				<span class="browse__sortbox-text">Sort by</span>
 				<button popovertarget="browse__sortbox__list" class="button-main">
-					{{ selectedOptionLabel }}
+					{{ selectedOptionLabel() }}
 					<svg xmlns="http://www.w3.org/2000/svg">
 						<use xlink:href="assets/main.svg#arrow-left" />
 					</svg>
 				</button>
-				<ul
-					popover
-					id="browse__sortbox__list"
-					class="browse__sortbox__list"
-					(click)="onOptionClick($event)"
-				>
+				<ul popover id="browse__sortbox__list" class="browse__sortbox__list">
 					@for (option of sortOptions; track option.id) {
 						<li class="browse__sortbox__list-item">
 							<input
 								type="radio"
 								name="option"
 								[id]="option.id"
-								[checked]="option.id === selectedOptionId"
+								[checked]="option.id === selectedOptionId()"
+								(click)="onOptionClick($event)"
 							/>
 							<label [for]="option.id">{{ option.label }}</label>
 						</li>

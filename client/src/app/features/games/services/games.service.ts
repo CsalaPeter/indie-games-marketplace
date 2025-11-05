@@ -5,7 +5,13 @@ import { Game } from '../models/game.model';
 @Injectable({ providedIn: 'root' })
 export class GameService {
 	getGamesResource(
-		params: Signal<{ genres: string[]; tags: string[]; platforms: string[]; term: string }>,
+		params: Signal<{
+			genres: string[];
+			tags: string[];
+			platforms: string[];
+			term: string;
+			sort: string;
+		}>,
 	) {
 		return httpResource<Game[]>(
 			() => ({
