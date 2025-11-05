@@ -7,6 +7,8 @@ interface GameFilters {
 	platforms?: string[];
 	term?: string;
 	sort?: string;
+	page?: number;
+	limit?: number;
 }
 
 export async function getGames({
@@ -15,7 +17,9 @@ export async function getGames({
 	platforms = [],
 	term = "",
 	sort = "date-new",
-}: GameFilters): Promise<Game[]> {
+	page = 1,
+	limit = 9,
+}: GameFilters): Promise<{ data: Game[]; total: number }> {
 	const query = AppDataSource.getRepository(Game)
 		.createQueryBuilder("game")
 		.leftJoinAndSelect("game.tags", "tag")
@@ -68,7 +72,10 @@ export async function getGames({
 			break;
 	}
 
-	return query.getMany();
+	const skip = (page - 1) * limit;
+	const [data, total] = await query.skip(skip).take(limit).getManyAndCount();
+
+	return { data, total };
 }
 
 export async function getGameBySlug(slug: string): Promise<Game | null> {

@@ -41,9 +41,9 @@
 						<use xlink:href="assets/main.svg#arrow-left" />
 					</svg>
 				</button>
-				<ul popover id="browse__sortbox__list" class="browse__sortbox__list">
+				<ul popover id="sortbox__list" class="sortbox__list">
 					@for (option of sortOptions; track option.id) {
-						<li class="browse__sortbox__list-item">
+						<li class="sortbox__list-item">
 							<input
 								type="radio"
 								name="option"
@@ -58,9 +58,18 @@
 			</div>
 		</div>
 		@defer {
-			<app-games-list [games]="games.value()" />
+			<app-games-list [games]="games.value().data" />
 		} @loading (minimum 1.5s) {
 			<app-games-skeleton />
 		}
+		<div class="pagination">
+			<button (click)="prevPage()" [disabled]="games.value().page === 1">Prev</button>
+
+			<span>Page {{ games.value().page }} / {{ games.value().pages }}</span>
+
+			<button (click)="nextPage()" [disabled]="games.value().page === games.value().pages">
+				Next
+			</button>
+		</div>
 	</div>
 </section>

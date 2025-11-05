@@ -11,15 +11,17 @@ export class GameService {
 			platforms: string[];
 			term: string;
 			sort: string;
+			page: number;
+			limit: number;
 		}>,
 	) {
-		return httpResource<Game[]>(
+		return httpResource<{ data: Game[]; total: number; page: number; pages: number }>(
 			() => ({
 				url: '/api/games',
 				method: 'GET',
 				params: params(),
 			}),
-			{ defaultValue: [] },
+			{ defaultValue: { data: [], total: 0, page: 1, pages: 1 } },
 		);
 	}
 

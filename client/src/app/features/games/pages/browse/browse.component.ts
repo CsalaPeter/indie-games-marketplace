@@ -1,4 +1,13 @@
-import { Component, computed, effect, inject, model, signal, WritableSignal } from '@angular/core';
+import {
+	Component,
+	computed,
+	effect,
+	inject,
+	model,
+	ModelSignal,
+	signal,
+	WritableSignal,
+} from '@angular/core';
 import { HttpResourceRef } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FilterListComponent } from '../../../filter/components/filter-list/filter-list.component';
@@ -19,17 +28,6 @@ import { Tag } from '../../models/tag.model';
 	imports: [GamesListComponent, FilterListComponent, GamesSkeletonComponent, FormsModule],
 })
 export class BrowsePageComponent {
-	private gameService = inject(GameService);
-	private filterService = inject(FilterService);
-	selectedGenres = model<string[]>([]);
-	selectedTags = model<string[]>([]);
-	selectedPlatforms = model<string[]>([]);
-
-	searchTerm: WritableSignal<string> = signal('');
-	debouncedSearchTerm: WritableSignal<string> = signal('');
-	private debounceTimer: number | undefined;
-	isActive = false;
-
 	sortOptions = [
 		{ id: 'date-new', label: 'Release Date (from newest)' },
 		{ id: 'date-old', label: 'Release Date (from oldest)' },
@@ -40,10 +38,25 @@ export class BrowsePageComponent {
 		{ id: 'rating', label: 'Rating (from highest)' },
 	];
 
+	gameService: GameService = inject(GameService);
+	filterService: FilterService = inject(FilterService);
+
+	selectedGenres: ModelSignal<string[]> = model<string[]>([]);
+	selectedTags: ModelSignal<string[]> = model<string[]>([]);
+	selectedPlatforms: ModelSignal<string[]> = model<string[]>([]);
+
+	searchTerm: WritableSignal<string> = signal('');
+	debouncedSearchTerm: WritableSignal<string> = signal('');
+	currentPage: WritableSignal<number> = signal(1);
+
 	selectedOptionId = signal('date-new');
 	selectedOptionLabel = signal(
 		this.sortOptions.find((option) => option.id === this.selectedOptionId())?.label || '',
 	);
+
+	debounceTimer: number | undefined;
+	isActive: boolean = false;
+	pageSize: number = 9;
 
 	constructor() {
 		effect(() => {
@@ -56,6 +69,13 @@ export class BrowsePageComponent {
 			this.debounceTimer = setTimeout(() => {
 				this.debouncedSearchTerm.set(term);
 			}, 600);
+
+			this.selectedOptionId();
+			this.selectedGenres();
+			this.selectedTags();
+			this.selectedPlatforms();
+			this.debouncedSearchTerm();
+			this.currentPage.set(1);
 		});
 	}
 
@@ -71,7 +91,20 @@ export class BrowsePageComponent {
 				this.selectedOptionLabel.set(selected.label);
 			}
 
-			(document.getElementById('browse__sortbox__list') as any)?.hidePopover?.();
+			(document.getElementById('sortbox__list') as any)?.hidePopover?.();
+		}
+	}
+
+	prevPage() {
+		if (this.currentPage() > 1) {
+			this.currentPage.set(this.currentPage() - 1);
+		}
+	}
+
+	nextPage() {
+		const info = this.games.value();
+		if (this.currentPage() < info.pages) {
+			this.currentPage.set(this.currentPage() + 1);
 		}
 	}
 
@@ -89,10 +122,13 @@ export class BrowsePageComponent {
 		platforms: this.selectedPlatforms(),
 		term: this.debouncedSearchTerm(),
 		sort: this.selectedOptionId(),
+		page: this.currentPage(),
+		limit: this.pageSize,
 	}));
 
 	genres: HttpResourceRef<Genre[]> = this.filterService.getGenres();
 	tags: HttpResourceRef<Tag[]> = this.filterService.getTags();
 	platforms: HttpResourceRef<Platform[]> = this.filterService.getPlatforms();
-	games: HttpResourceRef<Game[]> = this.gameService.getGamesResource(this.filters);
+	games: HttpResourceRef<{ data: Game[]; total: number; page: number; pages: number }> =
+		this.gameService.getGamesResource(this.filters);
 }

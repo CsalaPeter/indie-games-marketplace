@@ -20,13 +20,16 @@ function getQueryAsStrings(
 
 export async function getAllGames(request: Request, response: Response) {
 	try {
-		const { genres, tags, platform, term, sort } = request.query;
+		const { genres, tags, platform, term, sort, page, limit } =
+			request.query;
 
 		const genreFilters = getQueryAsStrings(genres);
 		const tagFilters = getQueryAsStrings(tags);
 		const platformFilters = getQueryAsStrings(platform);
 		const termFilter = getQueryAsStrings(term)[0] ?? "";
 		const sortOrder = getQueryAsStrings(sort)[0] ?? "";
+		const pageNumber = Number(getQueryAsStrings(page)[0] ?? 1);
+		const limitNumber = Number(getQueryAsStrings(limit)[0] ?? 9);
 
 		const games = await getGames({
 			genres: genreFilters,
@@ -34,8 +37,17 @@ export async function getAllGames(request: Request, response: Response) {
 			platforms: platformFilters,
 			term: termFilter,
 			sort: sortOrder,
+			page: pageNumber,
+			limit: limitNumber,
 		});
-		response.status(200).json(games);
+		response
+			.status(200)
+			.json({
+				data: games.data,
+				total: games.total,
+				page: pageNumber,
+				pages: Math.ceil(games.total / limitNumber),
+			});
 	} catch (error) {
 		console.error("Error fetching games:", error);
 		response.status(500).json({ message: "Internal server error" });
