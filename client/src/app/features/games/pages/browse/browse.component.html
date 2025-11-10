@@ -62,14 +62,44 @@
 		} @loading (minimum 1.5s) {
 			<app-games-skeleton />
 		}
-		<div class="pagination">
-			<button (click)="prevPage()" [disabled]="games.value().page === 1">Prev</button>
+		<nav class="pagination" aria-label="pagination">
+			<ul class="pagination__list">
+				<li class="pagination__item">
+					<button
+						class="pagination__button"
+						(click)="prevPage()"
+						[disabled]="games.value().page === 1"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg">
+							<use xlink:href="assets/main.svg#arrow-left" />
+						</svg>
+					</button>
+				</li>
 
-			<span>Page {{ games.value().page }} / {{ games.value().pages }}</span>
+				@for (page of pageNumbers(); track $index) {
+					<li class="pagination__item">
+						<button
+							class="pagination__button"
+							(click)="goToPage(page)"
+							[class.pagination__button--active]="page === games.value().page"
+						>
+							{{ page }}
+						</button>
+					</li>
+				}
 
-			<button (click)="nextPage()" [disabled]="games.value().page === games.value().pages">
-				Next
-			</button>
-		</div>
+				<li class="pagination__item">
+					<button
+						class="pagination__button"
+						(click)="nextPage()"
+						[disabled]="games.value().page === games.value().pages"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg">
+							<use xlink:href="assets/main.svg#arrow-left" />
+						</svg>
+					</button>
+				</li>
+			</ul>
+		</nav>
 	</div>
 </section>

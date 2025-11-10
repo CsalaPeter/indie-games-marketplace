@@ -100,163 +100,108 @@ async function seed() {
 
 	console.log("✅ Tags created!");
 
+	function randomItem<T>(array: T[]): T {
+		return array[Math.floor(Math.random() * array.length)];
+	}
+
+	function slugify(name: string): string {
+		return name
+			.toLowerCase()
+			.replace(/\s+/g, "-")
+			.replace(/[^a-z0-9-]/g, "");
+	}
+
+	function generateRandomGames(count: number) {
+		const adjectives = [
+			"Ancient",
+			"Blazing",
+			"Crimson",
+			"Dark",
+			"Eternal",
+			"Fallen",
+			"Galactic",
+			"Golden",
+			"Infinite",
+			"Lost",
+			"Neon",
+			"Phantom",
+			"Sacred",
+			"Shadow",
+			"Shattered",
+			"Silent",
+			"Silver",
+		];
+
+		const nouns = [
+			"Chronicles",
+			"City",
+			"Depths",
+			"Echoes",
+			"Empire",
+			"Expanse",
+			"Frontier",
+			"Ghosts",
+			"Heroes",
+			"Horizon",
+			"Kingdom",
+			"Legends",
+			"Odyssey",
+			"Realm",
+			"Rebellion",
+			"Saga",
+			"Sentinel",
+			"Town",
+			"Voyager",
+		];
+
+		const descriptions = [
+			"A gripping journey through unknown worlds.",
+			"Fight, explore, and forge your destiny.",
+			"Uncover secrets hidden for centuries.",
+			"Survival depends on choices and sacrifice.",
+			"Challenge powerful foes in a world on the edge.",
+			"Every decision shapes the fate of the realm.",
+		];
+
+		const games = [];
+
+		for (let i = 0; i < count; i++) {
+			const name = `${randomItem(adjectives)} ${randomItem(nouns)}`;
+			const price = parseFloat((Math.random() * 60).toFixed(2));
+			const releaseDate = new Date(
+				2000 + Math.floor(Math.random() * 25),
+				Math.floor(Math.random() * 12),
+				1 + Math.floor(Math.random() * 28),
+			);
+
+			games.push({
+				name,
+				slug: slugify(name),
+				price,
+				cardImageUrl: "",
+				description: randomItem(descriptions),
+				releaseDate,
+				genres: [randomItem(allGenres), randomItem(allGenres)],
+				platforms: [randomItem(allPlatforms), randomItem(allPlatforms)],
+				tags: [
+					randomItem(allTags),
+					randomItem(allTags),
+					randomItem(allTags),
+					randomItem(allTags),
+				],
+			});
+		}
+
+		return games;
+	}
+
 	const allGenres = await genreRepo.find();
 	const allPlatforms = await platformRepo.find();
 	const allTags = await tagRepo.find();
 
-	const genre = (name: string) => allGenres.find((x) => x.name === name)!;
-	const platform = (name: string) =>
-		allPlatforms.find((x) => x.name === name)!;
-	const tag = (name: string) => allTags.find((x) => x.name === name)!;
+	const randomGames = generateRandomGames(120);
 
-	const games = [
-		{
-			name: "Echoes of Aetheria",
-			slug: "echoes-of-aetheria",
-			price: 39.99,
-			cardImageUrl: "",
-			description:
-				"Journey through floating continents in a hand-painted world where time itself fractures. Forge bonds, master ancient runes, and decide the fate of Aetheria.",
-			releaseDate: new Date("2024-04-11"),
-			genres: [genre("Adventure"), genre("RPG")],
-			platforms: [platform("Windows"), platform("Mac")],
-			tags: [tag("Narrative"), tag("Mythology"), tag("Exploration")],
-		},
-		{
-			name: "Neon Drift: Tokyo Nights",
-			slug: "neon-drift-tokyo-nights",
-			price: 0,
-			cardImageUrl: "",
-			description:
-				"Race through rain-slicked neon streets of a future Tokyo. Tune your hover car, challenge gangs, and drift your way to underground glory.",
-			releaseDate: new Date("2023-10-06"),
-			genres: [genre("Racing"), genre("Action")],
-			platforms: [platform("Windows")],
-			tags: [tag("Arcade"), tag("Retro"), tag("Sci-fi")],
-		},
-		{
-			name: "Ironvale Chronicles",
-			slug: "ironvale-chronicles",
-			price: 49.99,
-			cardImageUrl: "",
-			description:
-				"An epic fantasy RPG set in a crumbling steampunk empire. Lead a band of outlaws, uncover forbidden magic, and fight for a future forged in iron.",
-			releaseDate: new Date("2022-11-22"),
-			genres: [genre("RPG"), genre("Adventure")],
-			platforms: [platform("Windows"), platform("Linux")],
-			tags: [tag("Dark"), tag("Choices Matter"), tag("Dungeon Crawler")],
-		},
-		{
-			name: "Starlight Expanse",
-			slug: "starlight-expanse",
-			price: 59.99,
-			cardImageUrl: "",
-			description:
-				"Command a small fleet on a journey through a collapsing galaxy. Explore alien worlds, upgrade your ship, and uncover the origins of a dying star.",
-			releaseDate: new Date("2024-02-15"),
-			genres: [genre("Shooter"), genre("Action")],
-			platforms: [platform("Windows"), platform("Mac")],
-			tags: [tag("Sci-fi"), tag("FPS"), tag("Exploration")],
-		},
-		{
-			name: "Crimson Reign",
-			slug: "crimson-reign",
-			price: 34.99,
-			cardImageUrl: "",
-			description:
-				"Rise from exile to reclaim your blood-soaked throne in a dark medieval realm. Every decision costs something—sometimes even your soul.",
-			releaseDate: new Date("2023-07-29"),
-			genres: [genre("Action"), genre("RPG")],
-			platforms: [platform("Windows"), platform("Linux")],
-			tags: [tag("Dark"), tag("Gore"), tag("Lovecraftian")],
-		},
-		{
-			name: "Hollowfront",
-			slug: "hollowfront",
-			price: 44.99,
-			cardImageUrl: "",
-			description:
-				"A haunting survival thriller set in the frozen remains of an arctic colony. Manage dwindling supplies, confront paranoia, and survive the endless night.",
-			releaseDate: new Date("2023-03-03"),
-			genres: [genre("Survival"), genre("Action")],
-			platforms: [platform("Windows"), platform("Mac")],
-			tags: [tag("Horror"), tag("Psychological Horror"), tag("Dark")],
-		},
-		{
-			name: "Vanguard Protocol",
-			slug: "vanguard-protocol",
-			price: 69.99,
-			cardImageUrl: "",
-			description:
-				"Become an elite pilot in a cybernetic war for humanity’s survival. Tactical shooter meets real-time strategy in a high-stakes, neural-synced battlefield.",
-			releaseDate: new Date("2025-06-08"),
-			genres: [genre("Shooter"), genre("Strategy")],
-			platforms: [platform("Windows"), platform("Linux")],
-			tags: [tag("Sci-fi"), tag("FPS"), tag("Stealth")],
-		},
-		{
-			name: "Frostborne Saga",
-			slug: "frostborne-saga",
-			price: 49.99,
-			cardImageUrl: "",
-			description:
-				"Guide your clan through endless winter. Hunt, craft, and build as ancient gods stir beneath the ice. Every dawn is a fight to survive.",
-			releaseDate: new Date("2024-12-01"),
-			genres: [genre("Adventure"), genre("RPG")],
-			platforms: [platform("Windows"), platform("Mac")],
-			tags: [tag("Mythology"), tag("Exploration"), tag("Crafting")],
-		},
-		{
-			name: "Ashen Horizon",
-			slug: "ashen-horizon",
-			price: 59.99,
-			cardImageUrl: "",
-			description:
-				"Terraform a lifeless planet into humanity’s new home. Balance ecosystems, harness storms, and uncover the remnants of an ancient alien race.",
-			releaseDate: new Date("2025-01-25"),
-			genres: [genre("Simulation"), genre("Strategy")],
-			platforms: [platform("Windows"), platform("Linux")],
-			tags: [tag("Base Building"), tag("City builder"), tag("Survival")],
-		},
-		{
-			name: "Quantum Requiem",
-			slug: "quantum-requiem",
-			price: 39.99,
-			cardImageUrl: "",
-			description:
-				"Fight your way through dimensions in a time-bending bullet hell. Every death rewrites reality — and every victory unravels it.",
-			releaseDate: new Date("2024-08-09"),
-			genres: [genre("Shooter"), genre("Action")],
-			platforms: [platform("Windows")],
-			tags: [tag("Bullet Hell"), tag("Arcade"), tag("Sci-fi")],
-		},
-		{
-			name: "Warden of the Deep",
-			slug: "warden-of-the-deep",
-			price: 19.99,
-			cardImageUrl: "",
-			description:
-				"Dive into an endless ocean of secrets. Discover lost civilizations, befriend sea spirits, and uncover the truth buried beneath the waves.",
-			releaseDate: new Date("2022-09-15"),
-			genres: [genre("Adventure"), genre("Simulation")],
-			platforms: [platform("Windows"), platform("Mac")],
-			tags: [tag("Exploration"), tag("Cozy"), tag("Casual")],
-		},
-		{
-			name: "Solaris Reborn",
-			slug: "solaris-reborn",
-			price: 24.99,
-			cardImageUrl: "",
-			description:
-				"Reclaim a shattered solar empire in this narrative-driven space opera. Forge alliances, betray friends, and determine the future of light itself.",
-			releaseDate: new Date("2025-09-17"),
-			genres: [genre("Action"), genre("RPG")],
-			platforms: [platform("Windows"), platform("Linux")],
-			tags: [tag("Sci-fi"), tag("Narrative"), tag("Choices Matter")],
-		},
-	];
-
-	for (const game of games) {
+	for (const game of randomGames) {
 		const exists = await gameRepo.findOne({ where: { name: game.name } });
 		if (!exists) {
 			await gameRepo.save(gameRepo.create(game));

@@ -95,6 +95,23 @@ export class BrowsePageComponent {
 		}
 	}
 
+	pageNumbers = computed(() => {
+		const info = this.games.value();
+		const totalPages = info.pages;
+		const current = info.page;
+		const maxButtons = 9;
+		if (totalPages <= maxButtons) {
+			return Array.from({ length: totalPages }, (_, i) => i + 1);
+		}
+		let start = Math.max(current - Math.floor(maxButtons / 2), 1);
+		let end = start + maxButtons - 1;
+		if (end > totalPages) {
+			end = totalPages;
+			start = end - maxButtons + 1;
+		}
+		return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+	});
+
 	prevPage() {
 		if (this.currentPage() > 1) {
 			this.currentPage.set(this.currentPage() - 1);
@@ -105,6 +122,12 @@ export class BrowsePageComponent {
 		const info = this.games.value();
 		if (this.currentPage() < info.pages) {
 			this.currentPage.set(this.currentPage() + 1);
+		}
+	}
+
+	goToPage(page: number) {
+		if (page !== this.currentPage()) {
+			this.currentPage.set(page);
 		}
 	}
 
