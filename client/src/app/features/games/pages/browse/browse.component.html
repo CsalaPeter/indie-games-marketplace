@@ -1,6 +1,7 @@
 <section class="browse">
 	<aside class="browse__filters">
 		<app-filter-list
+			[openAtStart]="true"
 			title="Genres"
 			[options]="genres.value()"
 			[(selectedOptions)]="selectedGenres"

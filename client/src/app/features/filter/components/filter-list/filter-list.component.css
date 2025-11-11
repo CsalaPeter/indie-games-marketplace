@@ -6,6 +6,18 @@
 .filter-list__header {
 	align-items: center;
 	display: flex;
+
+	& svg {
+		color: var(--text-light);
+		height: 24px;
+		rotate: 180deg;
+		transition: transform 0.3s ease;
+		width: 24px;
+	}
+}
+
+.filter-list__header:has(+ .filter-list__options.filter-list__options--show) > svg {
+	transform: rotate(90deg);
 }
 
 .filter-list__header__title {
@@ -14,13 +26,23 @@
 
 .filter-list__header__title-count {
 	color: var(--text-light);
+	column-gap: 8px;
+	display: flex;
 	font-size: 16px;
 	font-weight: 600;
+	margin-left: auto;
 
 	& svg {
-		color: var(--gray-100);
+		background-color: var(--text-light);
+		border-radius: 12px;
+		color: var(--blue-950);
 		height: 24px;
 		width: 24px;
+
+		&:hover {
+			cursor: pointer;
+			background-color: var(--gray-300);
+		}
 	}
 }
 
@@ -49,22 +71,6 @@
 		cursor: pointer;
 		text-decoration: underline;
 	}
-}
-
-.filter-list__header::before {
-	border: solid var(--text-light);
-	border-width: 0 2px 2px 0;
-	content: '';
-	display: inline-block;
-	height: 12px;
-	margin-inline: 6px 12px;
-	transform: rotate(-45deg);
-	transition: transform 0.3s ease;
-	width: 12px;
-}
-
-.filter-list__header:has(+ .filter-list__options.filter-list__options--show)::before {
-	transform: rotate(45deg);
 }
 
 .filter-list__options {
