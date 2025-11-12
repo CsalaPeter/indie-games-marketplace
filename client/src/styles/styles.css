@@ -40,9 +40,13 @@
 	--xl: 32px;
 	--xxl: 48px;
 
-	--shadow-small: 0 2px 4px hsla(219, 11%, 40%, 0.3);
-	--shadow-medium: 0 4px 8px hsla(219, 11%, 40%, 0.4);
-	--shadow-large: 0 6px 10px hsla(219, 11%, 40%, 0.5);
+	--shadow-small-dark: 0 2px 4px hsla(219, 11%, 40%, 0.3);
+	--shadow-medium-dark: 0 4px 8px hsla(219, 11%, 40%, 0.4);
+	--shadow-large-dark: 0 6px 10px hsla(219, 11%, 40%, 0.5);
+
+	--shadow-small-light: 0 2px 4px hsla(218, 14%, 79%, 0.3);
+	--shadow-medium-light: 0 4px 8px hsla(218, 14%, 79%, 0.4);
+	--shadow-large-light: 0 6px 10px hsla(218, 14%, 79%, 0.5);
 }
 
 h1 {
