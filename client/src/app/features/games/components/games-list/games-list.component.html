@@ -1,7 +1,15 @@
-<section class="game-list">
-	@for (game of games(); track game.id) {
-		<app-game-card [game]="game" />
-	} @empty {
-		<h1>No games yet...</h1>
-	}
-</section>
+@if (isLoading()) {
+	<section class="skeleton-list">
+		@for (number of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; track $index) {
+			<app-game-card-skeleton />
+		}
+	</section>
+} @else {
+	<section class="game-list">
+		@for (game of games(); track game.id) {
+			<app-game-card [game]="game" />
+		} @empty {
+			<h1>No games yet...</h1>
+		}
+	</section>
+}

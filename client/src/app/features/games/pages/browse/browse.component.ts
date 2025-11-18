@@ -11,7 +11,6 @@ import {
 import { HttpResourceRef } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FilterListComponent } from '../../../filter/components/filter-list/filter-list.component';
-import { GamesSkeletonComponent } from '../../components/games-skeleton/games-skeleton.component';
 import { GamesListComponent } from '../../components/games-list/games-list.component';
 import { FilterService } from '../../services/filter.service';
 import { GameService } from '../../services/games.service';
@@ -25,7 +24,7 @@ import { Tag } from '../../models/tag.model';
 	standalone: true,
 	templateUrl: './browse.component.html',
 	styleUrls: ['browse.component.css'],
-	imports: [GamesListComponent, FilterListComponent, GamesSkeletonComponent, FormsModule],
+	imports: [GamesListComponent, FilterListComponent, FormsModule],
 })
 export class BrowsePageComponent {
 	sortOptions = [

@@ -58,11 +58,7 @@
 				</ul>
 			</div>
 		</div>
-		@defer {
-			<app-games-list [games]="games.value().data" />
-		} @loading (minimum 1.5s) {
-			<app-games-skeleton />
-		}
+		<app-games-list [games]="games.value().data" [isLoading]="games.isLoading()" />
 		<nav class="pagination" aria-label="pagination">
 			<ul class="pagination__list">
 				<li class="pagination__item">
