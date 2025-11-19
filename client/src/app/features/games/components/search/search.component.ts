@@ -3,12 +3,13 @@ import { GameSearchService } from '../../services/search.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { SearchSkeleton } from '../search-skeleton/search-skeleton.component';
 
 @Component({
 	selector: 'app-search',
 	templateUrl: './search.component.html',
 	styleUrl: './search.component.css',
-	imports: [FormsModule, CommonModule, RouterLink],
+	imports: [FormsModule, CommonModule, RouterLink, SearchSkeleton],
 })
 export class SearchComponent {
 	readonly searchService = inject(GameSearchService);

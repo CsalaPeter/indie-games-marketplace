@@ -90,3 +90,14 @@
 	padding-left: 12px;
 	width: 100%;
 }
+
+search-skeleton {
+	animation: fadeIn 0.3s 0.2s forwards;
+	opacity: 0;
+}
+
+@keyframes fadeIn {
+	to {
+		opacity: 1;
+	}
+}
