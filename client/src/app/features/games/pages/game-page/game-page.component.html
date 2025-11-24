@@ -1,0 +1,44 @@
+<section class="game-page">
+	<h1 class="game-page__title">{{ game.value().name }}</h1>
+	<div class="game-page__container">
+		<div class="game-page__left">
+			<div class="game-page__gallery">
+				<swiper-container
+					class="game-page__slider"
+					thumbs-swiper=".game-page__thumbs"
+					space-between="10"
+					navigation="true"
+					effect="fade"
+				>
+					<swiper-slide class="game-page__slide">Slide 1</swiper-slide>
+					<swiper-slide class="game-page__slide">Slide 2</swiper-slide>
+					<swiper-slide class="game-page__slide">Slide 3</swiper-slide>
+					<swiper-slide class="game-page__slide">Slide 4</swiper-slide>
+					<swiper-slide class="game-page__slide">Slide 5</swiper-slide>
+					<swiper-slide class="game-page__slide">Slide 6</swiper-slide>
+					<swiper-slide class="game-page__slide">Slide 7</swiper-slide>
+				</swiper-container>
+				<swiper-container
+					class="game-page__thumbs"
+					space-between="8"
+					slides-per-view="6"
+					free-mode="true"
+					watch-slides-progress="true"
+				>
+					<swiper-slide class="game-page__thumb">Slide 1</swiper-slide>
+					<swiper-slide class="game-page__thumb">Slide 2</swiper-slide>
+					<swiper-slide class="game-page__thumb">Slide 3</swiper-slide>
+					<swiper-slide class="game-page__thumb">Slide 4</swiper-slide>
+					<swiper-slide class="game-page__thumb">Slide 5</swiper-slide>
+					<swiper-slide class="game-page__thumb">Slide 6</swiper-slide>
+					<swiper-slide class="game-page__thumb">Slide 7</swiper-slide>
+				</swiper-container>
+			</div>
+		</div>
+		<div class="game-page__right">
+			<div class="game-page__details">
+				<span class="game-page__description">{{ game.value().description }}</span>
+			</div>
+		</div>
+	</div>
+</section>
