@@ -1,13 +1,15 @@
 import express from "express";
+import dotenv from "dotenv";
 import "reflect-metadata";
 import { AppDataSource } from "./database/dataSource.js";
 import gameRouter from "./routes/game.routes.js";
 import genreRouter from "./routes/genre.routes.js";
 import tagRouter from "./routes/tag.routes.js";
 import platformRouter from "./routes/platform.routes.js";
+dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = process.env.DB_PORT;
 
 AppDataSource.initialize()
 	.then(() => {
