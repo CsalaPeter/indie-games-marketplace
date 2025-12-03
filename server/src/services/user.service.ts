@@ -8,3 +8,10 @@ export async function createUser(user: User) {
 export async function findByEmail(email: string) {
 	return AppDataSource.getRepository(User).findOne({ where: { email } });
 }
+
+export async function findUser(userId: number) {
+	return AppDataSource.getRepository(User).findOneOrFail({
+		where: { userId },
+		select: ["userName", "email", "role", "created_at"],
+	});
+}

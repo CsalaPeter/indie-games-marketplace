@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { encrypt } from "../util/util.js";
-import { createUser, findByEmail } from "src/services/user.service.js";
-import { User } from "src/database/entities/user.entity.js";
+import { createUser, findByEmail, findUser } from "../services/user.service.js";
+import { User } from "../database/entities/user.entity.js";
+import { LoginDto } from "../dto/user.dto.js";
 
 export async function registerUser(
 	request: Request<{}, {}, User>,
@@ -31,5 +32,61 @@ export async function registerUser(
 			.json({ message: "User registered successfully" });
 	} catch (error) {
 		return response.status(500).json({ error: "Internal Server Error" });
+	}
+}
+
+export async function loginUser(
+	request: Request<{}, {}, LoginDto>,
+	response: Response,
+) {
+	const { email, password } = request.body;
+
+	try {
+		const user = await findByEmail(email);
+		if (user) {
+			return response
+				.status(409)
+				.json({ message: "Email already in use" });
+		}
+
+		const isPasswordValid = encrypt.comparePassword(
+			password,
+			user!.password,
+		);
+
+		if (!isPasswordValid) {
+			return response
+				.status(401)
+				.json({ message: "Invalid credentials" });
+		}
+
+		const token = encrypt.generateToken({
+			userName: user!.userName,
+			email: user!.email,
+			role: user!.role,
+		});
+
+		return response.json({
+			message: "Login successful",
+			token: token,
+			user: {
+				id: user!.userId,
+				username: user!.userName,
+				email: user!.email,
+			},
+		});
+	} catch (error) {
+		return response.status(500).json({ error: "Internal Server Error" });
+	}
+}
+
+export async function getProfil(request: Request, response: Response) {
+	const { userId } = response.locals.jwtPayload;
+
+	try {
+		const user = findUser(userId);
+		return response.send(user);
+	} catch (error) {
+		return response.status(404).send("User not found!");
 	}
 }

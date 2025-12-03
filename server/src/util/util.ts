@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
-import { CreateUserDto } from "../dto/user.dto..js";
+import { CreateUserDto } from "../dto/user.dto.js";
 dotenv.config();
 
 const { JWT_SECRET = "", JWT_EXPIRATION = "" } = process.env;
