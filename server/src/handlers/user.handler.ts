@@ -8,7 +8,7 @@ export async function registerUser(
 	request: Request<{}, {}, User>,
 	response: Response,
 ) {
-	const { userName, email, password } = request.body;
+	const { userName, email, password, role } = request.body;
 
 	try {
 		const existingUser = await findByEmail(email);
@@ -24,6 +24,7 @@ export async function registerUser(
 		user.userName = userName;
 		user.email = email;
 		user.password = hasedPassword;
+		user.role = role;
 
 		await createUser(user);
 
@@ -68,12 +69,12 @@ export async function loginUser(
 
 		return response.json({
 			message: "Login successful",
-			token: token,
 			user: {
-				id: user!.userId,
-				username: user!.userName,
+				userName: user!.userName,
 				email: user!.email,
+				role: user!.role,
 			},
+			token: token,
 		});
 	} catch (error) {
 		return response.status(500).json({ error: "Internal Server Error" });

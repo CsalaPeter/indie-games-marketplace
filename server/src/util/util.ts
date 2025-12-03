@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import { CreateUserDto } from "../dto/user.dto.js";
 dotenv.config();
 
-const { JWT_SECRET = "", JWT_EXPIRATION = "" } = process.env;
+const { JWT_SECRET = "" } = process.env;
 export class encrypt {
 	static encryptPassword(password: string) {
 		return bcrypt.hashSync(password, 10);

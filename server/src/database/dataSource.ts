@@ -17,6 +17,5 @@ export const AppDataSource = new DataSource({
 	password: DB_PASSWORD,
 	database: DB_DATABASE,
 	synchronize: true,
-	logging: true,
 	entities: [Game, Tag, Platform, Genre, User],
 });
