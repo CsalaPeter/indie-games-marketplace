@@ -43,11 +43,18 @@ export async function loginUser(
 	const { email, password } = request.body;
 
 	try {
-		const user = await findByEmail(email);
-		if (user) {
+		if (!email || !password) {
 			return response
-				.status(409)
-				.json({ message: "Email already in use" });
+				.status(400)
+				.json({ message: "Username and password are required" });
+		}
+
+		const user = await findByEmail(email);
+
+		if (!user) {
+			return response
+				.status(401)
+				.json({ message: "Invalid credentials" });
 		}
 
 		const isPasswordValid = encrypt.comparePassword(
@@ -56,9 +63,7 @@ export async function loginUser(
 		);
 
 		if (!isPasswordValid) {
-			return response
-				.status(401)
-				.json({ message: "Invalid credentials" });
+			return response.status(401).json({ message: "Wrong Password!" });
 		}
 
 		const token = encrypt.generateToken({

@@ -11,7 +11,7 @@ export class encrypt {
 	}
 
 	static comparePassword(hashPassword: string, password: string) {
-		return bcrypt.compareSync(password, hashPassword);
+		return bcrypt.compare(password, hashPassword);
 	}
 
 	static generateToken(payload: CreateUserDto) {
