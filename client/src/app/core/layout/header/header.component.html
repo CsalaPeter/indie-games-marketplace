@@ -12,7 +12,13 @@
 	</ul>
 	<app-search></app-search>
 	<div class="navbar__buttons">
-		<button class="button-main">Log In</button>
-		<button class="button-main">Sign Up</button>
+		@if (authService.isAuthenticated()) {
+			<button class="button-main" (click)="onLogout()">Logout</button>
+		} @else {
+			<button routerLink="/login" routerLinkActive="active" class="button-main">
+				Log In
+			</button>
+			<button routerLink="/register" class="button-main">Sign Up</button>
+		}
 	</div>
 </nav>

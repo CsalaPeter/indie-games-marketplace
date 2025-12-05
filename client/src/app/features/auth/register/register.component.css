@@ -52,3 +52,9 @@ button:disabled {
 	background-color: #9ca3af;
 	cursor: not-allowed;
 }
+
+.footer-links {
+	margin-top: 1rem;
+	text-align: center;
+	font-size: 0.9rem;
+}

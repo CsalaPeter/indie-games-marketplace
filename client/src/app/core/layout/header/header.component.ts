@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { SearchComponent } from '../../../features/games/components/search/search.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
 	selector: 'app-layout-header',
@@ -8,4 +9,12 @@ import { SearchComponent } from '../../../features/games/components/search/searc
 	styleUrl: './header.component.css',
 	imports: [RouterLink, SearchComponent],
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+	authService = inject(AuthService);
+	private router = inject(Router);
+
+	onLogout() {
+		this.authService.logout();
+		this.router.navigate(['/']);
+	}
+}

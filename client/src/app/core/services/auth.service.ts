@@ -16,10 +16,12 @@ export class AuthService {
 
 	login(credentials: LoginRequest): Observable<AuthResponse> {
 		return this.http.post<AuthResponse>('/api/login', credentials).pipe(
-			tap((response) => {
-				if (response.token) {
-					this.setToken(response.token);
-				}
+			tap({
+				next: (response) => {
+					if (response.token) {
+						this.setToken(response.token);
+					}
+				},
 			}),
 		);
 	}

@@ -3,6 +3,7 @@ import { NotFound } from './core/errors/not-found/not-found.component';
 import { GamesPageComponent } from './features/games/pages/home/home.component';
 import { BrowsePageComponent } from './features/games/pages/browse/browse.component';
 import { GamePage } from './features/games/pages/game-page/game-page.component';
+import { AuthGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
 	{
@@ -24,6 +25,7 @@ export const routes: Routes = [
 		path: 'browse',
 		component: BrowsePageComponent,
 		title: 'Browse Games',
+		canActivate: [AuthGuard],
 	},
 	{
 		path: 'game/:slug',
