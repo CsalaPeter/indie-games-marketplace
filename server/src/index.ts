@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import "reflect-metadata";
 import { AppDataSource } from "./database/dataSource.js";
 import gameRouter from "./routes/game.routes.js";
@@ -11,6 +12,7 @@ dotenv.config();
 
 const app = express();
 const port = process.env.SERVER_PORT;
+app.use(cookieParser());
 app.use(express.json());
 
 AppDataSource.initialize()

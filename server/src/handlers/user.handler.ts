@@ -59,7 +59,7 @@ export async function loginUser(
 
 		const isPasswordValid = encrypt.comparePassword(
 			password,
-			user!.password,
+			user.password,
 		);
 
 		if (!isPasswordValid) {
@@ -67,26 +67,36 @@ export async function loginUser(
 		}
 
 		const token = encrypt.generateToken({
-			userName: user!.userName,
-			email: user!.email,
-			role: user!.role,
+			userName: user.userName,
+			email: user.email,
+			role: user.role,
+		});
+
+		response.cookie("token", token, {
+			httpOnly: true,
+			sameSite: "strict",
 		});
 
 		return response.json({
-			message: "Login successful",
-			user: {
-				userName: user!.userName,
-				email: user!.email,
-				role: user!.role,
-			},
-			token: token,
+			userName: user.userName,
+			email: user.email,
+			role: user.role,
 		});
 	} catch (error) {
+		console.log(error);
 		return response.status(500).json({ error: "Internal Server Error" });
 	}
 }
 
-export async function getProfil(request: Request, response: Response) {
+export async function logoutUser(_request: Request, response: Response) {
+	response.clearCookie("token", {
+		httpOnly: true,
+		sameSite: "strict",
+	});
+	return response.json({ message: "Logged out successfully!" });
+}
+
+export async function getProfile(_request: Request, response: Response) {
 	const { userId } = response.locals.jwtPayload;
 
 	try {

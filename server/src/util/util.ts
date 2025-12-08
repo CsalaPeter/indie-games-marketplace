@@ -10,11 +10,12 @@ export class encrypt {
 		return bcrypt.hashSync(password, 10);
 	}
 
-	static comparePassword(hashPassword: string, password: string) {
-		return bcrypt.compare(password, hashPassword);
+	static comparePassword(password: string, hashPassword: string) {
+		return bcrypt.compareSync(password, hashPassword);
 	}
 
-	static generateToken(payload: CreateUserDto) {
-		return jwt.sign(payload, JWT_SECRET, { expiresIn: "1d" });
+	static generateToken(user: CreateUserDto) {
+		console.log(user);
+		return jwt.sign(user, JWT_SECRET, { expiresIn: "1h" });
 	}
 }

@@ -3,35 +3,22 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-export interface JwtPayload {
-	username: string;
-	iat: number;
-	exp: number;
-}
-
 export function auth(request: Request, response: Response, next: NextFunction) {
-	const authHeader = request.headers.authorization;
-	let token: string = "";
-
-	if (!authHeader) {
-		return response.status(401).json({ message: "Unauthorized" });
-	}
-
-	if (authHeader && authHeader.startsWith("Bearer ")) {
-		token = authHeader.split(" ")[1];
-	}
+	const token = request.cookies.token;
 
 	if (!token) {
-		return response.status(401).json({ message: "No token provided" });
+		return response.status(401).send("Access denied. No token provided.");
 	}
 
 	try {
-		const jwtPayload = jwt.verify(token, process.env.JWT_SECRET!);
-		response.locals.JwtPayload = jwtPayload;
+		const user = jwt.verify(token, process.env.JWT_SECRET!);
+		request.user = user;
 		next();
 	} catch (error) {
+		response.clearCookie("token");
 		return response
 			.status(401)
-			.json({ message: "Invalid or expired token" });
+			.json({ message: "Invalid or expired token" })
+			.redirect("/");
 	}
 }
