@@ -14,22 +14,22 @@ import { Genre } from "./genre.entity.js";
 @Entity()
 export class Game {
 	@PrimaryGeneratedColumn()
-	id!: number;
+	declare id: number;
 
 	@Column("varchar")
-	name!: string;
+	declare name: string;
 
 	@Column({ type: "varchar", unique: true })
-	slug!: string;
+	declare slug: string;
 
 	@Column("varchar")
-	cardImageUrl!: string;
+	declare cardImageUrl: string;
 
 	@Column("varchar")
-	description!: string;
+	declare description: string;
 
 	@Column("date")
-	releaseDate!: Date;
+	declare releaseDate: Date;
 
 	@Column({
 		type: "decimal",
@@ -40,23 +40,23 @@ export class Game {
 			from: (value: string) => parseFloat(value),
 		},
 	})
-	price!: number;
+	declare price: number;
 
 	@ManyToMany(() => Tag)
 	@JoinTable()
-	tags!: Tag[];
+	declare tags: Tag[];
 
 	@ManyToMany(() => Platform)
 	@JoinTable()
-	platforms!: Platform[];
+	declare platforms: Platform[];
 
 	@ManyToMany(() => Genre)
 	@JoinTable()
-	genres!: Genre[];
+	declare genres: Genre[];
 
 	@CreateDateColumn({ name: "created_at", select: false })
-	created_at!: Date;
+	declare created_at: Date;
 
 	@UpdateDateColumn({ name: "updated_at", select: false })
-	updated_at!: Date;
+	declare updated_at: Date;
 }

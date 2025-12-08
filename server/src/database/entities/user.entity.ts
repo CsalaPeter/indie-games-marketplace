@@ -8,20 +8,20 @@ import {
 @Entity()
 export class User {
 	@PrimaryGeneratedColumn("uuid")
-	userId!: number;
+	declare userId: number;
 
 	@Column({ unique: true })
-	userName!: string;
+	declare userName: string;
 
 	@Column({ unique: true })
-	email!: string;
+	declare email: string;
 
 	@Column("varchar")
-	password!: string;
+	declare password: string;
 
 	@Column({ default: "user" })
-	role!: string;
+	declare role: string;
 
 	@CreateDateColumn({ name: "created_at", select: false })
-	created_at!: Date;
+	declare created_at: Date;
 }
