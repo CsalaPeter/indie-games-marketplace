@@ -8,7 +8,7 @@ import {
 @Entity()
 export class User {
 	@PrimaryGeneratedColumn("uuid")
-	declare userId: number;
+	declare userId: string;
 
 	@Column({ unique: true })
 	declare userName: string;

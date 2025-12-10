@@ -67,6 +67,7 @@ export async function loginUser(
 		}
 
 		const token = encrypt.generateToken({
+			userId: user.userId,
 			userName: user.userName,
 			email: user.email,
 			role: user.role,
@@ -78,6 +79,7 @@ export async function loginUser(
 		});
 
 		return response.json({
+			userId: user.userId,
 			userName: user.userName,
 			email: user.email,
 			role: user.role,
@@ -96,8 +98,8 @@ export async function logoutUser(_request: Request, response: Response) {
 	return response.json({ message: "Logged out successfully!" });
 }
 
-export async function getProfile(_request: Request, response: Response) {
-	const { userId } = response.locals.jwtPayload;
+export async function getProfile(request: Request, response: Response) {
+	const { userId } = request.cookies.token;
 
 	try {
 		const user = findUser(userId);

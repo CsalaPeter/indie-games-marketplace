@@ -15,7 +15,6 @@ export class encrypt {
 	}
 
 	static generateToken(user: CreateUserDto) {
-		console.log(user);
 		return jwt.sign(user, JWT_SECRET, { expiresIn: "1h" });
 	}
 }
