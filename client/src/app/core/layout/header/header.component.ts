@@ -13,8 +13,14 @@ export class HeaderComponent {
 	authService = inject(AuthService);
 	private router = inject(Router);
 
-	onLogout() {
-		this.authService.logout();
-		this.router.navigate(['/']);
+	logout() {
+		this.authService.logout().subscribe({
+			next: () => {
+				this.router.navigate(['/']);
+			},
+			error: (error) => {
+				console.error('Logout failed', error);
+			},
+		});
 	}
 }

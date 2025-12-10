@@ -1,46 +1,58 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { RegisterRequest, AuthResponse, LoginRequest } from '../models/auth.model';
+import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 	private http = inject(HttpClient);
-	private readonly TOKEN_KEY = 'auth_token';
 
-	isAuthenticated = signal<boolean>(this.hasToken());
+	isAuthenticated = signal<boolean>(false);
+	currentUser = signal<User | null>(null);
 
 	register(userData: RegisterRequest): Observable<AuthResponse> {
 		return this.http.post<AuthResponse>('/api/register', userData);
 	}
 
 	login(credentials: LoginRequest): Observable<AuthResponse> {
-		return this.http.post<AuthResponse>('/api/login', credentials).pipe(
+		return this.http
+			.post<AuthResponse>('/api/login', credentials, {
+				withCredentials: true,
+			})
+			.pipe(
+				tap({
+					next: () => this.isAuthenticated.set(true),
+				}),
+			);
+	}
+
+	logout(): Observable<any> {
+		return this.http
+			.post('/api/logout', {
+				withCredentials: true,
+			})
+			.pipe(
+				tap({
+					next: () => this.isAuthenticated.set(false),
+				}),
+			);
+	}
+
+	checkAuthStatus(): Observable<boolean> {
+		return this.http.get<User>('/api/profile', { withCredentials: true }).pipe(
 			tap({
-				next: (response) => {
-					if (response.token) {
-						this.setToken(response.token);
-					}
+				next: (user) => {
+					this.isAuthenticated.set(true);
+					this.currentUser.set(user);
 				},
 			}),
+			map(() => true),
+			catchError(() => {
+				this.isAuthenticated.set(false);
+				this.currentUser.set(null);
+				return of(false);
+			}),
 		);
-	}
-
-	private setToken(token: string) {
-		localStorage.setItem(this.TOKEN_KEY, token);
-		this.isAuthenticated.set(true);
-	}
-
-	private hasToken() {
-		return !!localStorage.getItem(this.TOKEN_KEY);
-	}
-
-	getToken() {
-		return localStorage.getItem(this.TOKEN_KEY);
-	}
-
-	logout() {
-		localStorage.removeItem(this.TOKEN_KEY);
-		this.isAuthenticated.set(false);
 	}
 }

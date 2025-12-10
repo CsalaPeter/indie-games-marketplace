@@ -25,7 +25,6 @@ export const routes: Routes = [
 		path: 'browse',
 		component: BrowsePageComponent,
 		title: 'Browse Games',
-		canActivate: [AuthGuard],
 	},
 	{
 		path: 'game/:slug',

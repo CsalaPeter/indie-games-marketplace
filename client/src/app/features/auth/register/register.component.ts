@@ -48,7 +48,7 @@ export class RegisterComponent {
 			.subscribe({
 				next: () => {
 					this.isLoading.set(false);
-					this.router.navigate(['/auth/login']);
+					this.router.navigate(['/login']);
 				},
 				error: (error) => {
 					this.isLoading.set(false);

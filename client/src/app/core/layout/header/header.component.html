@@ -13,11 +13,9 @@
 	<app-search></app-search>
 	<div class="navbar__buttons">
 		@if (authService.isAuthenticated()) {
-			<button class="button-main" (click)="onLogout()">Logout</button>
+			<button class="button-main" (click)="logout()">Logout</button>
 		} @else {
-			<button routerLink="/login" routerLinkActive="active" class="button-main">
-				Log In
-			</button>
+			<button routerLink="/login" class="button-main">Log In</button>
 			<button routerLink="/register" class="button-main">Sign Up</button>
 		}
 	</div>
