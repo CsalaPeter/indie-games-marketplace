@@ -6,11 +6,13 @@ import {
 	registerUser,
 } from "../handlers/user.handler.js";
 import { auth } from "../middleware/auth.middleware.js";
+import { validate } from "../middleware/validate.middleware.js";
+import { LoginSchema, RegisterSchema } from "../schemas/auth.schema.js";
 
 const userRoter = Router();
 
-userRoter.post("/register", registerUser);
-userRoter.post("/login", loginUser);
+userRoter.post("/register", validate(RegisterSchema), registerUser);
+userRoter.post("/login", validate(LoginSchema), loginUser);
 userRoter.post("/logout", logoutUser);
 userRoter.get("/profile", [auth], getProfile);
 

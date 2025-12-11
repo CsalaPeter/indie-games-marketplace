@@ -1,6 +1,6 @@
 {
 	"name": "server",
-	"version": "0.2.2",
+	"version": "0.3.0",
 	"description": "",
 	"license": "ISC",
 	"author": "",
@@ -21,7 +21,8 @@
 		"pg": "^8.16.3",
 		"postgres": "^3.4.7",
 		"reflect-metadata": "^0.2.2",
-		"typeorm": "^0.3.27"
+		"typeorm": "^0.3.27",
+		"zod": "^4.1.13"
 	},
 	"devDependencies": {
 		"@types/bcryptjs": "^2.4.6",

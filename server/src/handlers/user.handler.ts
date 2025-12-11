@@ -3,12 +3,13 @@ import { encrypt } from "../util/util.js";
 import { createUser, findByEmail, findUser } from "../services/user.service.js";
 import { User } from "../database/entities/user.entity.js";
 import { LoginDto } from "../dto/user.dto.js";
+import { RegisterInput } from "src/schemas/auth.schema.js";
 
 export async function registerUser(
-	request: Request<{}, {}, User>,
+	request: Request<{}, {}, RegisterInput>,
 	response: Response,
 ) {
-	const { userName, email, password, role } = request.body;
+	const { username, email, password, role } = request.body;
 
 	try {
 		const existingUser = await findByEmail(email);
@@ -21,7 +22,7 @@ export async function registerUser(
 		const hasedPassword = encrypt.encryptPassword(password);
 
 		const user = new User();
-		user.userName = userName;
+		user.username = username;
 		user.email = email;
 		user.password = hasedPassword;
 		user.role = role;
@@ -68,7 +69,7 @@ export async function loginUser(
 
 		const token = encrypt.generateToken({
 			userId: user.userId,
-			userName: user.userName,
+			username: user.username,
 			email: user.email,
 			role: user.role,
 		});
@@ -80,7 +81,7 @@ export async function loginUser(
 
 		return response.json({
 			userId: user.userId,
-			userName: user.userName,
+			username: user.username,
 			email: user.email,
 			role: user.role,
 		});

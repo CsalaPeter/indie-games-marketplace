@@ -12,6 +12,6 @@ export async function findByEmail(email: string) {
 export async function findUser(userId: string) {
 	return AppDataSource.getRepository(User).findOneOrFail({
 		where: { userId },
-		select: ["userName", "email", "role"],
+		select: ["username", "email", "role"],
 	});
 }
