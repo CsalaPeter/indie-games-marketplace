@@ -1,8 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity("genres")
 export class Genre {
-	@PrimaryGeneratedColumn()
+	@PrimaryGeneratedColumn("uuid")
 	declare id: number;
 
 	@Column()

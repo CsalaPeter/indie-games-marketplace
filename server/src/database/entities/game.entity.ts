@@ -6,15 +6,17 @@ import {
 	JoinTable,
 	CreateDateColumn,
 	UpdateDateColumn,
+	OneToMany,
 } from "typeorm";
 import { Tag } from "./tag.entity.js";
 import { Platform } from "./platform.entity.js";
 import { Genre } from "./genre.entity.js";
+import { Review } from "./review.entity.js";
 
-@Entity()
+@Entity("games")
 export class Game {
-	@PrimaryGeneratedColumn()
-	declare id: number;
+	@PrimaryGeneratedColumn("uuid", { name: "game_id" })
+	declare gameId: number;
 
 	@Column("varchar")
 	declare name: string;
@@ -22,13 +24,13 @@ export class Game {
 	@Column({ type: "varchar", unique: true })
 	declare slug: string;
 
-	@Column("varchar")
+	@Column({ type: "varchar", name: "card_image_url" })
 	declare cardImageUrl: string;
 
 	@Column("varchar")
 	declare description: string;
 
-	@Column("date")
+	@Column({ type: "date", name: "release_date" })
 	declare releaseDate: Date;
 
 	@Column({
@@ -42,6 +44,18 @@ export class Game {
 	})
 	declare price: number;
 
+	@Column({
+		type: "decimal",
+		precision: 3,
+		scale: 2,
+		default: 0,
+		name: "average_rating",
+	})
+	declare averageRating: number;
+
+	@Column("integer", { default: 0, name: "ratings_count" })
+	declare ratingsCount: number;
+
 	@ManyToMany(() => Tag)
 	@JoinTable()
 	declare tags: Tag[];
@@ -54,9 +68,12 @@ export class Game {
 	@JoinTable()
 	declare genres: Genre[];
 
+	@OneToMany(() => Review, (review) => review.game)
+	declare reviews: Review[];
+
 	@CreateDateColumn({ name: "created_at", select: false })
-	declare created_at: Date;
+	declare createdAt: Date;
 
 	@UpdateDateColumn({ name: "updated_at", select: false })
-	declare updated_at: Date;
+	declare updatedAt: Date;
 }

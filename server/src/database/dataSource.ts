@@ -1,9 +1,4 @@
 import { DataSource } from "typeorm";
-import { Game } from "./entities/game.entity.js";
-import { Tag } from "./entities/tag.entity.js";
-import { Platform } from "./entities/platform.entity.js";
-import { Genre } from "./entities/genre.entity.js";
-import { User } from "./entities/user.entity.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -17,5 +12,5 @@ export const AppDataSource = new DataSource({
 	password: DB_PASSWORD,
 	database: DB_DATABASE,
 	synchronize: true,
-	entities: [Game, Tag, Platform, Genre, User],
+	entities: ["entity/*.js"],
 });

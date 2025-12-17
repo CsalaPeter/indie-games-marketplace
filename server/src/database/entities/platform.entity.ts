@@ -1,8 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity("platforms")
 export class Platform {
-	@PrimaryGeneratedColumn()
+	@PrimaryGeneratedColumn("uuid")
 	declare id: number;
 
 	@Column()

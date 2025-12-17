@@ -3,11 +3,14 @@ import {
 	PrimaryGeneratedColumn,
 	Column,
 	CreateDateColumn,
+	UpdateDateColumn,
+	OneToMany,
 } from "typeorm";
+import { Review } from "./review.entity.js";
 
-@Entity()
+@Entity("users")
 export class User {
-	@PrimaryGeneratedColumn("uuid")
+	@PrimaryGeneratedColumn("uuid", { name: "user_id" })
 	declare userId: string;
 
 	@Column({ unique: true })
@@ -22,6 +25,12 @@ export class User {
 	@Column({ default: "user" })
 	declare role: string;
 
+	@OneToMany(() => Review, (review) => review.user)
+	declare reviews: Review[];
+
 	@CreateDateColumn({ name: "created_at", select: false })
-	declare created_at: Date;
+	declare createdAt: Date;
+
+	@UpdateDateColumn({ name: "updated_at", select: false })
+	declare updatedAt: Date;
 }
