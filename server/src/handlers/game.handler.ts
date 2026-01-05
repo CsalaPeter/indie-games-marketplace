@@ -1,8 +1,9 @@
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
 import {
 	getGames,
 	getGameBySlug,
 	getGamesByTerm,
+	uploadGame,
 } from "../services/game.service.js";
 import { ParsedQs } from "qs";
 
@@ -40,14 +41,12 @@ export async function getAllGames(request: Request, response: Response) {
 			page: pageNumber,
 			limit: limitNumber,
 		});
-		response
-			.status(200)
-			.json({
-				data: games.data,
-				total: games.total,
-				page: pageNumber,
-				pages: Math.ceil(games.total / limitNumber),
-			});
+		response.status(200).json({
+			data: games.data,
+			total: games.total,
+			page: pageNumber,
+			pages: Math.ceil(games.total / limitNumber),
+		});
 	} catch (error) {
 		console.error("Error fetching games:", error);
 		response.status(500).json({ message: "Internal server error" });
@@ -71,5 +70,32 @@ export async function searchGames(request: Request, response: Response) {
 	} catch (error) {
 		console.error("Error fetching game:", error);
 		response.status(500).json({ message: "Internal server error" });
+	}
+}
+
+export async function postGame(request: Request, response: Response) {
+	try {
+		const files = request.files as {
+			[fieldname: string]: Express.Multer.File[];
+		};
+		const cardImage = files["coverImage"]?.[0];
+		const gameFile = files["gameFile"]?.[0];
+
+		if (!cardImage || !gameFile) {
+			return response
+				.status(400)
+				.json({ message: "Missing required files" });
+		}
+
+		const gamaData = {
+			...request.body,
+			cardImageUrl: cardImage.path,
+			filePath: gameFile.path,
+		};
+		await uploadGame(gamaData);
+		response.status(201).json({ message: "Game uploaded successfully" });
+	} catch (error) {
+		console.error("Error uploading game:", error);
+		response.status(500).json({ message: "internal server error" });
 	}
 }

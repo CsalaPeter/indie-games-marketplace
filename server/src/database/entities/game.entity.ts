@@ -16,7 +16,7 @@ import { Review } from "./review.entity.js";
 @Entity("games")
 export class Game {
 	@PrimaryGeneratedColumn("uuid", { name: "game_id" })
-	declare gameId: number;
+	declare gameId: string;
 
 	@Column("varchar")
 	declare name: string;
@@ -26,6 +26,9 @@ export class Game {
 
 	@Column({ type: "varchar", name: "card_image_url" })
 	declare cardImageUrl: string;
+
+	@Column({ type: "varchar", name: "file_path" })
+	declare filePath: string;
 
 	@Column("varchar")
 	declare description: string;

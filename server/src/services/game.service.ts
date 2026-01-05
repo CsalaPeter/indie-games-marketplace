@@ -94,3 +94,23 @@ export async function getGamesByTerm(term: string): Promise<Game[]> {
 		.where("game.name ILIKE :term", { term: `%${term}%` })
 		.getMany();
 }
+
+export async function uploadGame(gameData: Partial<Game>) {
+	return AppDataSource.getRepository(Game)
+		.createQueryBuilder("game")
+		.insert()
+		.into("game")
+		.values({
+			name: gameData.name,
+			slug: gameData.slug,
+			card_image_url: gameData.cardImageUrl,
+			file_path: gameData.filePath,
+			description: gameData.description,
+			release_date: gameData.releaseDate,
+			price: gameData.price,
+			tags: gameData.tags,
+			platforms: gameData.platforms,
+			genres: gameData.genres,
+		})
+		.execute();
+}
