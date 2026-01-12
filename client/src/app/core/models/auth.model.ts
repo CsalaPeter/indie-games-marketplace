@@ -4,7 +4,7 @@ export interface LoginRequest {
 }
 
 export interface RegisterRequest {
-	userName: string;
+	username: string;
 	email: string;
 	password: string;
 	role: string;
@@ -13,7 +13,7 @@ export interface RegisterRequest {
 export interface AuthResponse {
 	message: string;
 	user?: {
-		userName: string;
+		username: string;
 		email: string;
 		role: string;
 	};

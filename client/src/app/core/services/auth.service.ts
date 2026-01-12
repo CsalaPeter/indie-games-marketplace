@@ -3,12 +3,10 @@ import { inject, Injectable, signal } from '@angular/core';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { RegisterRequest, AuthResponse, LoginRequest } from '../models/auth.model';
 import { User } from '../models/user.model';
-import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 	private http = inject(HttpClient);
-	private router = inject(Router);
 
 	isAuthenticated = signal<boolean>(false);
 	currentUser = signal<User | null>(null);

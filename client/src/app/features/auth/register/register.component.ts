@@ -40,7 +40,7 @@ export class RegisterComponent {
 
 		this.authService
 			.register({
-				userName: formData.username!,
+				username: formData.username!,
 				email: formData.email!,
 				password: formData.password!,
 				role: formData.role!,

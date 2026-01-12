@@ -25,6 +25,9 @@ export class User {
 	@Column({ default: "user" })
 	declare role: string;
 
+	@Column({ nullable: true })
+	declare avatarUrl: string;
+
 	@OneToMany(() => Review, (review) => review.user)
 	declare reviews: Review[];
 
