@@ -5,18 +5,24 @@
 		</svg>
 	</a>
 	<ul class="navbar__menu">
-		<li class="navbar__menu-item" routerLink="browse">Browse</li>
-		<li class="navbar__menu-item">Categories</li>
-		<li class="navbar__menu-item">Community</li>
-		<li class="navbar__menu-item">Support</li>
+		<li class="navbar__item" routerLink="browse">Browse</li>
+		<li class="navbar__item">Categories</li>
+		<li class="navbar__item">Community</li>
+		<li class="navbar__item">Support</li>
 	</ul>
 	<app-search></app-search>
-	<div class="navbar__buttons">
+	<div class="navbar__actions">
 		@if (authService.isAuthenticated()) {
-			<button class="button-main" (click)="logout()">Logout</button>
+			<button class="avatar-button" (click)="toggleDropdown()">
+				<img src="../../../../assets/images/avatar_placeholder.jpg" />
+			</button>
+			<div class="navbar__dropdown" [class.navbar__dropdown--open]="isOpen()">
+				<a class="button-main" routerLink="/upload-game">Upload Game</a>
+				<a class="button-main" (click)="logout()">Logout</a>
+			</div>
 		} @else {
-			<button routerLink="/login" class="button-main">Log In</button>
-			<button routerLink="/register" class="button-main">Sign Up</button>
+			<a class="button-main" routerLink="/login">Log In</a>
+			<a class="button-main" routerLink="/register">Sign Up</a>
 		}
 	</div>
 </nav>

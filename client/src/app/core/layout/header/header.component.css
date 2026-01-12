@@ -23,7 +23,7 @@
 	column-gap: 16px;
 }
 
-.navbar__menu-item {
+.navbar__item {
 	font-size: 16px;
 	font-weight: 500;
 	line-height: 1.2;
@@ -34,10 +34,34 @@
 	}
 }
 
-.navbar__buttons {
+.navbar__actions {
 	display: flex;
 	gap: 16px;
 	margin-left: auto;
+}
+
+.avatar-button {
+	height: 32px;
+	cursor: pointer;
+
+	& img {
+		border-radius: 16px;
+		height: 32px;
+		width: 32px;
+	}
+}
+
+.navbar__dropdown {
+	display: none;
+}
+
+.navbar__dropdown--open {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	position: absolute;
+	right: 10px;
+	top: 80px;
 }
 
 app-search {

@@ -1,9 +1,11 @@
-import { Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import { httpResource } from '@angular/common/http';
+import { Injectable, inject, Signal } from '@angular/core';
+import { httpResource, HttpClient } from '@angular/common/http';
 import { Game } from '../models/game.model';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
+	private http = inject(HttpClient);
+
 	getGamesResource(
 		params: Signal<{
 			genres: string[];
@@ -33,5 +35,9 @@ export class GameService {
 			}),
 			{ defaultValue: {} as Game },
 		);
+	}
+
+	uploadGame(formData: FormData) {
+		return this.http.post('/api/upload', formData);
 	}
 }
