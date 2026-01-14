@@ -1,1 +1,74 @@
-<p>game-upload works!</p>
+<section class="upload-page">
+	<h1 class="upload-page__title">Upload New Game</h1>
+
+	<form class="upload-page__form" [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+		<div>
+			<label class="block font-medium">Game Name</label>
+			<input type="text" formControlName="name" />
+			@if (uploadForm.get('name')?.invalid && uploadForm.get('name')?.touched) {
+				<p>Name is required.</p>
+			}
+		</div>
+
+		<div>
+			<label>Slug (URL friendly)</label>
+			<input type="text" formControlName="slug" placeholder="e.g. super-mario-64" />
+		</div>
+
+		<div>
+			<div>
+				<label>Price ($)</label>
+				<input type="number" formControlName="price" step="0.01" />
+			</div>
+			<div>
+				<label>Release Date</label>
+				<input type="date" formControlName="releaseDate" />
+			</div>
+		</div>
+
+		<div>
+			<label>Genres</label>
+			<select multiple formControlName="genres">
+				@for (genre of availableGenres.value(); track genre.id) {
+					<option [value]="genre.id">{{ genre.name }}</option>
+				}
+			</select>
+		</div>
+
+		<div>
+			<label>Platforms</label>
+			<select multiple formControlName="platforms">
+				@for (platform of availablePlatforms.value(); track platform.id) {
+					<option [value]="platform.id">{{ platform.name }}</option>
+				}
+			</select>
+		</div>
+
+		<div>
+			<label>Description</label>
+			<textarea formControlName="description" rows="4"></textarea>
+		</div>
+
+		<hr />
+
+		<div>
+			<label>Cover Image (JPG, PNG, WEBP)</label>
+			<input
+				type="file"
+				(change)="onCoverImageSelected($event)"
+				accept="image/jpeg, image/png, image/webp"
+			/>
+			<p *ngIf="!coverImage() && uploadForm.touched">Cover image is required.</p>
+		</div>
+
+		<div>
+			<label>Game File (.exe only)</label>
+			<input type="file" (change)="onGameFileSelected($event)" accept=".exe" />
+			<p *ngIf="!gameFile() && uploadForm.touched">Executable file is required.</p>
+		</div>
+
+		<button class="button-main" type="submit" [disabled]="isSubmitting()">
+			{{ isSubmitting() ? 'Uploading...' : 'Publish Game' }}
+		</button>
+	</form>
+</section>
