@@ -3,7 +3,7 @@
 		@if (game().cardImageUrl === '') {
 			<img src="assets/images/no-img.png" />
 		} @else {
-			<img [src]="game().cardImageUrl" />
+			<img [src]="getImageUrl(game().cardImageUrl)" />
 		}
 	</div>
 	<div class="card__body">

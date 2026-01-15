@@ -36,6 +36,15 @@
 		</div>
 
 		<div>
+			<label>Tags</label>
+			<select multiple formControlName="tags">
+				@for (tag of availableTags.value(); track tag.id) {
+					<option [value]="tag.id">{{ tag.name }}</option>
+				}
+			</select>
+		</div>
+
+		<div>
 			<label>Platforms</label>
 			<select multiple formControlName="platforms">
 				@for (platform of availablePlatforms.value(); track platform.id) {

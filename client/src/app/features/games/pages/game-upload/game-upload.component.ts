@@ -36,7 +36,7 @@ export class GameUploadComponent {
 		releaseDate: ['', [Validators.required]],
 		genres: [[] as string[], Validators.required],
 		platforms: [[] as string[], Validators.required],
-		tags: [[] as string[]],
+		tags: [[] as string[], Validators.required],
 	});
 
 	onCoverImageSelected(event: Event) {
