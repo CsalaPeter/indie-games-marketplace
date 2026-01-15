@@ -1,3 +1,4 @@
+import { console } from "inspector";
 import { AppDataSource } from "../database/dataSource.js";
 import { Game } from "../database/entities/game.entity.js";
 
@@ -11,6 +12,23 @@ interface GameFilters {
 	limit?: number;
 }
 
+interface CreateGame {
+	body: {
+		name: string;
+		slug: string;
+		description: string;
+		releaseDate: string;
+		price: number;
+		tags: string;
+		platforms: string;
+		genres: string;
+	};
+	files: {
+		coverImage: Express.Multer.File;
+		gameFile: Express.Multer.File;
+	};
+}
+
 export async function getGames({
 	genres = [],
 	tags = [],
@@ -21,10 +39,10 @@ export async function getGames({
 	limit = 9,
 }: GameFilters): Promise<{ data: Game[]; total: number }> {
 	const query = AppDataSource.getRepository(Game)
-		.createQueryBuilder("game")
-		.leftJoinAndSelect("game.tags", "tag")
-		.leftJoinAndSelect("game.platforms", "platform")
-		.leftJoinAndSelect("game.genres", "genre");
+		.createQueryBuilder("games")
+		.leftJoinAndSelect("games.tags", "tag")
+		.leftJoinAndSelect("games.platforms", "platform")
+		.leftJoinAndSelect("games.genres", "genre");
 
 	if (genres.length > 0) {
 		query.andWhere("genre.name IN (:...genres)", { genres });
@@ -39,36 +57,36 @@ export async function getGames({
 	}
 
 	if (term !== "") {
-		query.andWhere("game.name ILIKE :term", { term: `%${term}%` });
+		query.andWhere("games.name ILIKE :term", { term: `%${term}%` });
 	}
 
 	switch (sort) {
 		case "date-new":
-			query.orderBy("game.releaseDate", "DESC");
+			query.orderBy("games.releaseDate", "DESC");
 			break;
 
 		case "date-old":
-			query.orderBy("game.releaseDate", "ASC");
+			query.orderBy("games.releaseDate", "ASC");
 			break;
 
 		case "price-ascending":
-			query.orderBy("game.price", "ASC");
+			query.orderBy("games.price", "ASC");
 			break;
 
 		case "price-descending":
-			query.orderBy("game.price", "DESC");
+			query.orderBy("games.price", "DESC");
 			break;
 
 		case "name-az":
-			query.orderBy("game.name", "ASC");
+			query.orderBy("games.name", "ASC");
 			break;
 
 		case "name-za":
-			query.orderBy("game.name", "DESC");
+			query.orderBy("games.name", "DESC");
 			break;
 
 		case "rating":
-			query.orderBy("game.rating", "DESC");
+			query.orderBy("games.rating", "DESC");
 			break;
 	}
 
@@ -80,37 +98,44 @@ export async function getGames({
 
 export async function getGameBySlug(slug: string): Promise<Game | null> {
 	return AppDataSource.getRepository(Game)
-		.createQueryBuilder("game")
-		.where("game.slug = :slug", { slug })
-		.leftJoinAndSelect("game.tags", "tag")
-		.leftJoinAndSelect("game.platforms", "platform")
-		.leftJoinAndSelect("game.genres", "genre")
+		.createQueryBuilder("games")
+		.where("games.slug = :slug", { slug })
+		.leftJoinAndSelect("games.tags", "tag")
+		.leftJoinAndSelect("games.platforms", "platform")
+		.leftJoinAndSelect("games.genres", "genre")
 		.getOne();
 }
 
 export async function getGamesByTerm(term: string): Promise<Game[]> {
 	return AppDataSource.getRepository(Game)
-		.createQueryBuilder("game")
+		.createQueryBuilder("games")
 		.where("game.name ILIKE :term", { term: `%${term}%` })
 		.getMany();
 }
 
-export async function uploadGame(gameData: Partial<Game>) {
-	return AppDataSource.getRepository(Game)
-		.createQueryBuilder("game")
-		.insert()
-		.into("game")
-		.values({
-			name: gameData.name,
-			slug: gameData.slug,
-			card_image_url: gameData.cardImageUrl,
-			file_path: gameData.filePath,
-			description: gameData.description,
-			release_date: gameData.releaseDate,
-			price: gameData.price,
-			tags: gameData.tags,
-			platforms: gameData.platforms,
-			genres: gameData.genres,
-		})
-		.execute();
+export async function uploadGame(gameData: CreateGame): Promise<Game> {
+	const { body, files } = gameData;
+	console.log("Body Content:", body);
+
+	const tags = JSON.parse(body.tags || "[]").map((id: string) => ({ id }));
+	const platforms = JSON.parse(body.platforms || "[]").map((id: string) => ({
+		id,
+	}));
+	const genres = JSON.parse(body.genres || "[]").map((id: string) => ({
+		id,
+	}));
+
+	const newGame = AppDataSource.getRepository(Game).create({
+		name: body.name,
+		slug: body.slug,
+		description: body.description,
+		cardImageUrl: files.coverImage.path,
+		filePath: files.gameFile.path,
+		releaseDate: new Date(body.releaseDate),
+		price: Number(body.price),
+		tags,
+		platforms,
+		genres,
+	});
+	return await AppDataSource.getRepository(Game).save(newGame);
 }

@@ -73,26 +73,29 @@ export async function searchGames(request: Request, response: Response) {
 	}
 }
 
-export async function postGame(request: Request, response: Response) {
+export async function createGame(request: Request, response: Response) {
 	try {
 		const files = request.files as {
 			[fieldname: string]: Express.Multer.File[];
 		};
-		const cardImage = files["coverImage"]?.[0];
+		const coverImage = files["coverImage"]?.[0];
 		const gameFile = files["gameFile"]?.[0];
 
-		if (!cardImage || !gameFile) {
+		if (!coverImage || !gameFile) {
 			return response
 				.status(400)
 				.json({ message: "Missing required files" });
 		}
 
-		const gamaData = {
-			...request.body,
-			cardImageUrl: cardImage.path,
-			filePath: gameFile.path,
+		const gameData = {
+			body: request.body, // Contains name, slug, price, and the JSON strings for tags/genres/platforms
+			files: {
+				coverImage: coverImage,
+				gameFile: gameFile,
+			},
 		};
-		await uploadGame(gamaData);
+
+		await uploadGame(gameData);
 		response.status(201).json({ message: "Game uploaded successfully" });
 	} catch (error) {
 		console.error("Error uploading game:", error);

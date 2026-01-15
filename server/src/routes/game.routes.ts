@@ -3,7 +3,7 @@ import multer from "multer";
 import {
 	getAllGames,
 	getGame,
-	postGame,
+	createGame,
 	searchGames,
 } from "../handlers/game.handler.js";
 import { upload } from "../middleware/files.middleware.js";
@@ -25,7 +25,7 @@ gameRouter.post("/upload", (request, response, _next) => {
 		} else if (error) {
 			return response.status(400).json({ message: error.message });
 		}
-		postGame(request, response);
+		createGame(request, response);
 	});
 });
 

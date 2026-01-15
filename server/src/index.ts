@@ -8,12 +8,16 @@ import genreRouter from "./routes/genre.routes.js";
 import tagRouter from "./routes/tag.routes.js";
 import platformRouter from "./routes/platform.routes.js";
 import userRoter from "./routes/user.routes.js";
+import path from "path";
+import { fileURLToPath } from "url";
 dotenv.config();
 
 const app = express();
 const port = process.env.SERVER_PORT;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(cookieParser());
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 AppDataSource.initialize()
 	.then(() => {
