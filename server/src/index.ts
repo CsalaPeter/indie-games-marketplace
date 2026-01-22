@@ -8,6 +8,7 @@ import genreRouter from "./routes/genre.routes.js";
 import tagRouter from "./routes/tag.routes.js";
 import platformRouter from "./routes/platform.routes.js";
 import userRoter from "./routes/user.routes.js";
+import highlightRouter from "./routes/highlight.routes.js";
 import path from "path";
 import { fileURLToPath } from "url";
 dotenv.config();
@@ -31,6 +32,7 @@ AppDataSource.initialize()
 			tagRouter,
 			platformRouter,
 			userRoter,
+			highlightRouter,
 		]);
 	})
 	.catch((error) => {

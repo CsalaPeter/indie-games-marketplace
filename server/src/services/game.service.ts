@@ -1,4 +1,3 @@
-import { console } from "inspector";
 import { AppDataSource } from "../database/dataSource.js";
 import { Game } from "../database/entities/game.entity.js";
 
@@ -115,7 +114,6 @@ export async function getGamesByTerm(term: string): Promise<Game[]> {
 
 export async function uploadGame(gameData: CreateGame): Promise<Game> {
 	const { body, files } = gameData;
-	console.log("Body Content:", body);
 
 	const tags = JSON.parse(body.tags || "[]").map((id: string) => ({ id }));
 	const platforms = JSON.parse(body.platforms || "[]").map((id: string) => ({

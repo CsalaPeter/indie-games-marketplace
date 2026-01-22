@@ -6,6 +6,7 @@ import { Platform } from "./entities/platform.entity.js";
 import { Review } from "./entities/review.entity.js";
 import { Tag } from "./entities/tag.entity.js";
 import { User } from "./entities/user.entity.js";
+import { Highlight } from "./entities/highlight.entity.js";
 dotenv.config();
 
 const { DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;
@@ -18,5 +19,5 @@ export const AppDataSource = new DataSource({
 	password: DB_PASSWORD,
 	database: DB_DATABASE,
 	synchronize: true,
-	entities: [Game, Genre, Platform, Review, Tag, User],
+	entities: [Game, Genre, Platform, Review, Tag, User, Highlight],
 });
