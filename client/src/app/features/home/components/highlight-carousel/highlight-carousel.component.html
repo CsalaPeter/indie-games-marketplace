@@ -1,0 +1,24 @@
+<section class="highlight">
+	<h2 class="highlight__title">Highlights</h2>
+	<swiper-container
+		class="highlight__slider"
+		navigation="true"
+		autoplay-delay="3500"
+		autoplay-disable-on-interaction="false"
+		effect="fade"
+		pagination="true"
+	>
+		@for (highlight of highlights.value(); track highlight.highlightId) {
+			<swiper-slide class="highlight__slide">
+				<img [src]="getBannerUrl(highlight.bannerUrl)" />
+				<div class="highlight__overlay">
+					<h3 class="highlight__game-name">Test Name</h3>
+					<div class="highlight__actions">
+						<span class="highlight__price">9.99$</span>
+						<button class="button-main">Get The game -></button>
+					</div>
+				</div>
+			</swiper-slide>
+		}
+	</swiper-container>
+</section>

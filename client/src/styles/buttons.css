@@ -12,7 +12,7 @@ button {
 	border-radius: 4px;
 	color: var(--text-light);
 	display: flex;
-	padding: 4px 24px;
+	padding: 8px 24px;
 
 	& svg {
 		height: 24px;

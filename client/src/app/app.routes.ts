@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { NotFound } from './core/errors/not-found/not-found.component';
-import { GamesPageComponent } from './features/games/pages/home/home.component';
+import { HomePageComponent } from './features/home/pages/home-page/home.component';
 import { BrowsePageComponent } from './features/games/pages/browse/browse.component';
 import { GamePage } from './features/games/pages/game-page/game-page.component';
 import { authGuard } from './core/auth/auth.guard';
@@ -9,7 +9,7 @@ import { GameUploadComponent } from './features/games/pages/game-upload/game-upl
 export const routes: Routes = [
 	{
 		path: '',
-		component: GamesPageComponent,
+		component: HomePageComponent,
 		title: 'Home',
 	},
 	{
