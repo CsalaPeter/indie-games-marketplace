@@ -1,15 +1,30 @@
+.highlight {
+	display: block;
+	margin-bottom: 24px;
+}
+
 .highlight__title {
 	margin-bottom: 12px;
 }
 
 .highlight__slider {
-	height: 450px;
+	display: block;
+	height: 250px;
 	width: 100%;
+
+	@media (max-width: 768px) {
+		height: 300px;
+	}
+
+	@media (min-width: 1024px) {
+		height: 450px;
+	}
 }
 
 .highlight__slide {
 	border-radius: 12px;
 	overflow: hidden;
+	position: relative;
 
 	& img {
 		height: 100%;
@@ -23,25 +38,38 @@
 	background: linear-gradient(
 		180deg,
 		rgba(0, 0, 0, 0) 0%,
-		rgba(0, 0, 0, 0.4) 40%,
+		rgba(0, 0, 0, 0.6) 20%,
 		rgba(0, 0, 0, 1) 100%
 	);
+	border-radius: 4px;
+	bottom: 0;
 	display: flex;
 	justify-content: space-between;
-	position: absolute;
-	bottom: 0;
 	left: 0;
 	padding: 20px;
-	border-radius: 4px;
+	position: absolute;
 	width: 100%;
+
+	@media (max-width: 768px) {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 12px;
+	}
 }
 
 .highlight__actions {
 	align-items: center;
-	display: flex;
 	column-gap: 20px;
+	display: flex;
+	flex-shrink: 0;
+
+	@media (max-width: 768px) {
+		width: 100%;
+		justify-content: space-between;
+	}
 }
 
 .highlight__price {
-	font-size: 26px;
+	font-weight: 700;
+	font-size: clamp(18px, 4vw, 26px);
 }

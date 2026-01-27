@@ -1,13 +1,6 @@
 <section class="highlight">
 	<h2 class="highlight__title">Highlights</h2>
-	<swiper-container
-		class="highlight__slider"
-		navigation="true"
-		autoplay-delay="3500"
-		autoplay-disable-on-interaction="false"
-		effect="fade"
-		pagination="true"
-	>
+	<swiper-container #swiperRef init="false" class="highlight__slider">
 		@for (highlight of highlights.value(); track highlight.highlightId) {
 			<swiper-slide class="highlight__slide">
 				<img [src]="getBannerUrl(highlight.bannerUrl)" />
