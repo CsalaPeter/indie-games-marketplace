@@ -1,28 +1,42 @@
 <nav class="navbar">
-	<a class="navbar__brand" routerLink="/">
-		<svg xmlns="http://www.w3.org/2000/svg">
-			<use xlink:href="assets/main.svg#logo-placeholder" />
-		</svg>
-	</a>
-	<ul class="navbar__menu">
-		<li class="navbar__item" routerLink="browse">Browse</li>
-		<li class="navbar__item">Categories</li>
-		<li class="navbar__item">Community</li>
-		<li class="navbar__item">Support</li>
-	</ul>
-	<app-search></app-search>
-	<div class="navbar__actions">
-		@if (authService.isAuthenticated()) {
-			<button class="avatar-button" (click)="toggleDropdown()">
-				<img src="../../../../assets/images/avatar_placeholder.jpg" />
-			</button>
-			<div class="navbar__dropdown" [class.navbar__dropdown--open]="isOpen()">
-				<a class="button-main" routerLink="/upload-game">Upload Game</a>
-				<a class="button-main" (click)="logout()">Logout</a>
-			</div>
-		} @else {
-			<a class="button-main" routerLink="/login">Log In</a>
-			<a class="button-main" routerLink="/register">Sign Up</a>
-		}
+	<div class="navbar__container">
+		<a class="navbar__brand" routerLink="/">
+			<svg xmlns="http://www.w3.org/2000/svg">
+				<use xlink:href="assets/main.svg#logo-placeholder" />
+			</svg>
+		</a>
+		<ul class="navbar__menu">
+			<li class="navbar__item" routerLink="browse">Browse</li>
+			<li class="navbar__item">Categories</li>
+		</ul>
+		<app-search></app-search>
+		<div class="navbar__actions">
+			@if (authService.isAuthenticated()) {
+				<button class="avatar-button" (mouseleave)="hideMenu()" (mouseenter)="showMenu()">
+					<img src="../../../../assets/images/avatar_placeholder.jpg" />
+				</button>
+				<div class="navbar__dropdown" [class.navbar__dropdown--open]="isOpen()">
+					<a class="button-main" routerLink="/upload-game">Upload Game</a>
+					<a class="button-main" (click)="logout()">Logout</a>
+				</div>
+			} @else {
+				<a
+					class="navbar__item"
+					(mouseleave)="hideMenu()"
+					(mouseenter)="showMenu()"
+					routerLink="/login"
+					>Sign In</a
+				>
+				<div
+					class="navbar__dropdown"
+					(mouseenter)="showMenu()"
+					(mouseleave)="hideMenu()"
+					[class.navbar__dropdown--open]="isOpen()"
+				>
+					<a class="button-main" routerLink="/login">Log In</a>
+					<a class="button-main" routerLink="/register">Register</a>
+				</div>
+			}
+		</div>
 	</div>
 </nav>

@@ -14,16 +14,19 @@ export class HeaderComponent {
 	private router = inject(Router);
 	isOpen = signal(false);
 	elementRef = inject(ElementRef);
+	timer: number = 0;
 
-	@HostListener('document:click', ['$event'])
-	clickout(event: Event) {
-		if (!this.elementRef.nativeElement.contains(event.target)) {
-			this.isOpen.set(false);
+	showMenu() {
+		if (this.timer) {
+			clearTimeout(this.timer);
 		}
+		this.isOpen.set(true);
 	}
 
-	toggleDropdown() {
-		this.isOpen.update((value) => !value);
+	hideMenu() {
+		this.timer = setTimeout(() => {
+			this.isOpen.set(false);
+		}, 200);
 	}
 
 	logout() {
