@@ -1,19 +1,22 @@
-import { Component, ElementRef, HostListener, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { SearchComponent } from '../../../features/games/components/search/search.component';
 import { AuthService } from '../../services/auth.service';
+import { GameSearchService } from '../../../features/games/services/search.service';
 
 @Component({
 	selector: 'app-layout-header',
 	templateUrl: './header.component.html',
 	styleUrl: './header.component.css',
-	imports: [RouterLink, SearchComponent],
+	imports: [RouterLink, FormsModule, CommonModule],
 })
 export class HeaderComponent {
 	authService = inject(AuthService);
 	private router = inject(Router);
+	readonly searchService = inject(GameSearchService);
 	isOpen = signal(false);
-	elementRef = inject(ElementRef);
+	isVisible = signal(false);
 	timer: number = 0;
 
 	showMenu() {
@@ -29,6 +32,14 @@ export class HeaderComponent {
 		}, 200);
 	}
 
+	showSearch() {
+		this.isVisible.set(true);
+	}
+
+	hideSearch() {
+		this.isVisible.set(false);
+	}
+
 	logout() {
 		this.authService.logout().subscribe({
 			next: () => {
@@ -38,5 +49,28 @@ export class HeaderComponent {
 				console.error('Logout failed', error);
 			},
 		});
+	}
+
+	get results() {
+		return this.searchService.searchResults.value();
+	}
+
+	get isLoading() {
+		return this.searchService.searchResults.isLoading();
+	}
+
+	get term() {
+		return this.searchService.debouncedSearchTerm();
+	}
+
+	hasResults() {
+		if (this.searchService.debouncedSearchTerm().length >= 3) {
+			return true;
+		}
+		return false;
+	}
+
+	selectItem() {
+		this.searchService.updateSearchTerm('');
 	}
 }

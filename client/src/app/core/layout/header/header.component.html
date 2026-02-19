@@ -2,14 +2,71 @@
 	<div class="navbar__container">
 		<a class="navbar__brand" routerLink="/">
 			<svg xmlns="http://www.w3.org/2000/svg">
-				<use xlink:href="assets/main.svg#logo-placeholder" />
+				<use href="assets/main.svg#logo-placeholder" />
 			</svg>
 		</a>
 		<ul class="navbar__menu">
-			<li class="navbar__item" routerLink="browse">Browse</li>
-			<li class="navbar__item">Categories</li>
+			<li class="navbar__menu-item" routerLink="browse">Browse</li>
+			<li class="navbar__menu-item">Categories</li>
 		</ul>
-		<app-search></app-search>
+		<div class="navbar__search" [class.navbar__search--show]="isVisible()">
+			<form class="navbar__search-form" (submit)="$event.preventDefault()">
+				<input
+					aria-label="Search input"
+					autocomplete="off"
+					class="navbar__search-input"
+					type="text"
+					name="searchField"
+					placeholder="Search..."
+					[ngModel]="searchService.getRawSearchTerm()"
+					(ngModelChange)="searchService.updateSearchTerm($event)"
+				/>
+				<button type="button" class="navbar__search-button" aria-label="Search button">
+					<svg xmlns="http://www.w3.org/2000/svg">
+						<use href="assets/main.svg#magnifying-glass" />
+					</svg>
+				</button>
+			</form>
+			<div class="navbar__search-results" [class.navbar__search-results--visible]="hasResults()">
+				@if (isLoading) {
+					<ul class="search__skeleton-list">
+						@for (number of [0, 1, 2, 3, 4]; track $index) {
+							<li class="search__skeleton-item">
+								<div class="search__skeleton-item-thumbnail skeleton"></div>
+								<div class="search__skeleton-item-content">
+									<span class="skeleton"></span>
+									<span class="skeleton"></span>
+								</div>
+							</li>
+						}
+					</ul>
+				} @else if (results.length === 0 && !isLoading && term.length >= 3) {
+					<p>No results found for "{{ term }}"</p>
+				} @else if (!isLoading && results.length != 0) {
+					<ul class="navbar__results-list">
+						@for (game of results; track game.gameId) {
+							<li
+								class="navbar__search-results-item"
+								[routerLink]="['/game', game.slug]"
+								(click)="selectItem()"
+							>
+								<img [src]="game.cardImageUrl" />
+								<div class="navbar__result-body">
+									<p>{{ game.name }}</p>
+									<p>
+										@if (game.price > 0) {
+											{{ game.price | currency: 'EUR' }}
+										} @else {
+											Free
+										}
+									</p>
+								</div>
+							</li>
+						}
+					</ul>
+				}
+			</div>
+		</div>
 		<div class="navbar__actions">
 			@if (authService.isAuthenticated()) {
 				<button class="avatar-button" (mouseleave)="hideMenu()" (mouseenter)="showMenu()">
@@ -20,13 +77,35 @@
 					<a class="button-main" (click)="logout()">Logout</a>
 				</div>
 			} @else {
+				@if (isVisible()){
+					<a class="navbar__menu-item" (click)="hideSearch()">
+						<svg xmlns="http://www.w3.org/2000/svg">
+							<use href="assets/main.svg#cross" />
+						</svg>
+					</a>
+				} @else {
+					<a class="navbar__menu-item" (click)="showSearch()">
+						<svg xmlns="http://www.w3.org/2000/svg">
+							<use href="assets/main.svg#magnifying-glass" />
+						</svg>
+					</a>
+				}
+
 				<a
-					class="navbar__item"
+					class="navbar__menu-item"
 					(mouseleave)="hideMenu()"
 					(mouseenter)="showMenu()"
 					routerLink="/login"
-					>Sign In</a
-				>
+					>
+					<svg xmlns="http://www.w3.org/2000/svg">
+						<use href="assets/main.svg#avatar-icon" />
+					</svg>
+				</a>
+				<a class="navbar__menu-item hide">
+					<svg xmlns="http://www.w3.org/2000/svg">
+						<use href="assets/main.svg#hamburger-menu" />
+					</svg>
+				</a>
 				<div
 					class="navbar__dropdown"
 					(mouseenter)="showMenu()"
