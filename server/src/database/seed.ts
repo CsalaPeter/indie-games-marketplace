@@ -179,6 +179,7 @@ async function seed() {
 				slug: slugify(name),
 				price,
 				cardImageUrl: "",
+				filePath: "uploads/files",
 				description: randomItem(descriptions),
 				releaseDate,
 				genres: [randomItem(allGenres), randomItem(allGenres)],

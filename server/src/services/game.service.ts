@@ -108,7 +108,7 @@ export async function getGameBySlug(slug: string): Promise<Game | null> {
 export async function getGamesByTerm(term: string): Promise<Game[]> {
 	return AppDataSource.getRepository(Game)
 		.createQueryBuilder("games")
-		.where("game.name ILIKE :term", { term: `%${term}%` })
+		.where("games.name ILIKE :term", { term: `%${term}%` })
 		.getMany();
 }
 

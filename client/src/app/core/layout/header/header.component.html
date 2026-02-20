@@ -29,13 +29,13 @@
 			</form>
 			<div class="navbar__search-results" [class.navbar__search-results--visible]="hasResults()">
 				@if (isLoading) {
-					<ul class="search__skeleton-list">
+					<ul class="navbar__results-list">
 						@for (number of [0, 1, 2, 3, 4]; track $index) {
-							<li class="search__skeleton-item">
-								<div class="search__skeleton-item-thumbnail skeleton"></div>
-								<div class="search__skeleton-item-content">
-									<span class="skeleton"></span>
-									<span class="skeleton"></span>
+							<li class="navbar__results-item">
+								<div class="navbar__result-item-thumbnail skeleton"></div>
+								<div class="navbar__result-body" style="display: flex; flex-direction: column; gap: 8px; justify-content: center; padding-inline: 12px;">
+									<span class="skeleton" style="display: block; height: 24px; width: 100%"></span>
+									<span class="skeleton" style="display: block; height: 24px; width: 100%"></span>
 								</div>
 							</li>
 						}
@@ -46,11 +46,11 @@
 					<ul class="navbar__results-list">
 						@for (game of results; track game.gameId) {
 							<li
-								class="navbar__search-results-item"
+								class="navbar__results-item"
 								[routerLink]="['/game', game.slug]"
-								(click)="selectItem()"
+								(click)="onSelectItem()"
 							>
-								<img [src]="game.cardImageUrl" />
+								<img class="navbar__result-item-thumbnail" [src]="game.cardImageUrl" />
 								<div class="navbar__result-body">
 									<p>{{ game.name }}</p>
 									<p>

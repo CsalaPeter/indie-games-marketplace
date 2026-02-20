@@ -88,7 +88,7 @@ export async function createGame(request: Request, response: Response) {
 		}
 
 		const gameData = {
-			body: request.body, // Contains name, slug, price, and the JSON strings for tags/genres/platforms
+			body: request.body,
 			files: {
 				coverImage: coverImage,
 				gameFile: gameFile,

@@ -120,3 +120,23 @@ app-root {
 * {
 	box-sizing: border-box;
 }
+
+.skeleton {
+	animation: loading 1.5s infinite;
+	background: linear-gradient(
+		90deg,
+		var(--blue-600) 25%,
+		var(--blue-400) 50%,
+		var(--blue-600) 75%
+	);
+	background-size: 200% 100%;
+}
+
+@keyframes loading {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
